@@ -1,0 +1,35 @@
+Pseudocode
+
+Loop invariant: no difference occurs more than twice. 
+
+Check if we have finished labeling a whole cycle. 
+    If we have a 2-factor, we are done, because at each stage we made sure 
+    the difference list was OK. 
+    If not, find the next cycle. 
+Else 
+    Pick a vertex v from the list of vertices we haven't used yet. 
+    Add v to the cycle. 
+    Check if we have too many differences. If so, take v off and try again.
+
+Need a global state of the differences we have at the end of each iteration of main loop.
+Need to know which vertices we've already used. 
+
+Handy to have data structures that keep track of how long they are. 
+Use C++ or can I find a way around this?? 
+
+Say v1 and v2 are vertices and it turns out that we can't put v1 on the cycle 
+because it gets stuck down the line. Then when we roll back v1, we must remove
+all of its children from the stack as well. 
+
+Only put the children of a node v on the stack AFTER you've verified that 
+v doesn't get you stuck down the line. Check list of differences after every 
+vertex addition, not all the way at the end. 
+
+Only data structure I might have to roll is the stack. 
+
+The arrays for differences, factorisations etc. all have known sizes beforehand
+and a simple counter can be used to keep track of where we are. Alternatively we 
+could use C++ and just use vectors. 
+
+Really annoying keeping track of how many things are in a data structure.
+How do C programmers commonly deal with this issue? -> LOOK UP
