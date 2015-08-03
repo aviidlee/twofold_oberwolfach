@@ -22,6 +22,22 @@ using std::vector;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::ostream;
+
+/*
+ * For some reason cannot overload ostream's <<
+ */
+void print_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
+	cout << "[";
+	for(int i = 0; i < numCycles; i++) {
+		cout << "[";
+		for(int j = 0; j < factor[i]-1; j++) {
+			cout << cycleList[i][j].vertex << ", ";
+		}
+		cout << cycleList[i][factor[i]-1].vertex << "]";
+	}
+	cout << "]" << endl;
+}
 
 void print_int_array(int len, int* array) {
 	cout << "[";
@@ -63,8 +79,8 @@ inline bool increase_diffs(int n, int previous, int next, int* diffList) {
 	if(previous == n || next == n) {
 		return true;
 	}
-	int diff1 = (next - previous) % n;
-	int diff2 = n - diff1;
+	int diff1 = (next - previous) % (n-1);
+	int diff2 = (n-1) - diff1;
 	if(diffList[diff1] > 1 || diffList[diff2] > 1) {
 		return false;
 	} else {
@@ -79,8 +95,8 @@ inline void decrease_diffs(int n, int previous, int next, int* diffList) {
 		return;
 	}
 
-	int diff1 = (next - previous) % n;
-	int diff2 = n - diff1;
+	int diff1 = (next - previous) % (n-1);
+	int diff2 = (n-1) - diff1;
 
 	diffList[diff1]--;
 	diffList[diff2]--;
@@ -130,6 +146,9 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 	cout << "Looking for cycle number " << cycleID << endl;
 	cout << "The available array: " << endl;
 	print_int_array(n, available);
+	cout << "Current cycleList: ";
+	print_cycle_list(numFactors, factor, cycleList);
+	cout << endl;
 
 	int cycleLen = factor[cycleID];
 	Vertex* cycle = cycleList[cycleID];
@@ -149,6 +168,8 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 
 		// If all of the children of a vertex on the cycle are dead ends, we need to roll the vertex up.
 		while(numVerts >0 && nextVertex.parent != cycle[numVerts-1].vertex) {
+			cout << "I am " << next << " , expecting " << cycle[numVerts-1].vertex<< " as my parent" << endl;
+			cout << "Instead I got " << nextVertex.parent << endl;
 			numVerts = roll_back(n, cycle[numVerts-1].vertex, numVerts, cycle, diffList, available);
 		}
 
@@ -178,7 +199,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 			}
 
 			// Check if we have a 2-factor
-			if(cycleID == numFactors) {
+			if(cycleID == numFactors-1) {
 				// Everything should be dandy in terms of differences.
 				return true;
 			} else {
@@ -189,7 +210,9 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 					continue;
 				}
 
+				cout << "*GASP* I think we found a cycle" << endl;
 				cycleList[cycleID] = cycle;
+
 				return true;
 			}
 		}
@@ -197,10 +220,10 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 		/* Update theStack. If we reach this line, it means we have put something on cycle,
 		 * because we always 'continue' if we roll the cycle back or do nothing.
 		 */
-		expand_Vertex(n, nextVertex.parent, available, theStack);
+		expand_Vertex(n, cycle[numVerts-1].vertex, available, theStack);
 	}
 
-	// No twofold 2-starter possible, return null.
+	// No twofold 2-starter possible, return false.
 	return false;
 }
 
@@ -234,7 +257,7 @@ int main(int argc, char** argv) {
 	}
 
 	if(n < 3 || numCycles < 1) {
-		cout << "Too few Vertexs or too few cycles!" << endl;
+		cout << "Too few vertices or too few cycles!" << endl;
 		return -1;
 	}
 
@@ -258,7 +281,12 @@ int main(int argc, char** argv) {
 	print_int_array(numCycles, factor);
 
 	Vertex* cycleList[numCycles];
-	find_starter(n, numCycles, factor, cycleList);
+	if(find_starter(n, numCycles, factor, cycleList)) {
+		print_cycle_list(numCycles, factor, cycleList);
+	} else {
+		cout << "No 2-starter found!" << endl;
+	}
+
 	return 0;
 }
 
