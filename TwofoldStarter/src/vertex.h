@@ -8,6 +8,10 @@
 #ifndef VERTEX_H_
 #define VERTEX_H_
 
+#include <iostream>
+
+using std::ostream;
+
 struct Vertex {
 	int vertex;
 	int parent;
@@ -18,7 +22,12 @@ struct Vertex {
 	}
 
 	Vertex() : vertex(-1), parent(-1) {}
+
+	//friend ostream& operator<<(ostream& os, const Vertex& vert);
 };
-
-
+/*
+ostream& operater<<(ostream& os, const Vertex& vert) {
+		os << vert.vertex << "co" << vert.parent;
+		return os;
+*/
 #endif /* VERTEX_H_ */

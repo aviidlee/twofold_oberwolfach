@@ -23,6 +23,14 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+void print_int_array(int len, int* array) {
+	cout << "[";
+	for(int i = 0; i < len-1; i++) {
+		cout << array[i] << ",";
+	}
+	cout << array[len-1] << "]" << endl;
+}
+
 void initialise_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
 	for(int i = 0; i < numCycles; i++) {
 		cycleList[i] = new Vertex[factor[i]]();
@@ -119,6 +127,10 @@ void expand_Vertex(int n, int parent, int* available, vector<Vertex>& theStack) 
  * @param available - the vertices we haven't yet used in a cycle.
  */
 bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>& theStack, Vertex** cycleList, int* diffList, int* available) {
+	cout << "Looking for cycle number " << cycleID << endl;
+	cout << "The available array: " << endl;
+	print_int_array(n, available);
+
 	int cycleLen = factor[cycleID];
 	Vertex* cycle = cycleList[cycleID];
 
@@ -151,6 +163,10 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 			} else {
 				continue;
 			}
+		} else {
+			cycle[numVerts] = nextVertex;
+			numVerts++;
+			available[next] = 0;
 		}
 
 		// Check if we have a whole cycle
@@ -190,18 +206,21 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 
 bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList) {
 	// The current list of differences, with diffList[i] = number of occurrences of difference i.
-	int diffList[n];
+	int diffList[n] = {0};
 	initialise_cycle_list(numCycles, factor, cycleList);
 	vector<Vertex> theStack;
 	init_theStack(n, theStack);
 	int available[n+1];
 	init_available(n+1, available);
+
 	return find_cycle(n, factor, numCycles, 0, theStack, cycleList, diffList, available);
 }
 
 int main(int argc, char** argv) {
 
 	cout << "Looking for amazingly awesome twofold 2-factors!!!" << endl;
+	cout << "This is version 1" << endl;
+
 	if(argc < 3) {
 		cout << "Usage: findstarter n t l_1 l_2 ... l_t where n is number of Vertexs, t is number of cycles, l_i are cycle lengths" << endl;
 		return -1;
@@ -235,7 +254,8 @@ int main(int argc, char** argv) {
 		cout << "Your cycle lengths do not sum to " << n << endl;
 		return -1;
 	}
-	cout << "Trying to compute a twofold 2-starter with cycle lengths " << factor << endl;
+	cout << "Trying to compute a twofold 2-starter with cycle lengths: " << endl;
+	print_int_array(numCycles, factor);
 
 	Vertex* cycleList[numCycles];
 	find_starter(n, numCycles, factor, cycleList);
