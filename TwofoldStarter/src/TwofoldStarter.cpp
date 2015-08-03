@@ -16,12 +16,11 @@
 #include "windows.h"
 
 using namespace std;
+struct Node {
+	int vertex;
+	Node* parent;
+};
 
-int main() {
-
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	return 0;
-}
 
 inline void updateDiffList(int* diffList, int diff1, int diff2) {
 	diffList[diff1]++;
@@ -38,12 +37,11 @@ int** find_starter(int n) {
 /**
  * Return the number of vertices on the cycle.
  */
-inline int roll_back(int n, int next, int numVerts, int* cycle, int* diffList) {
+inline int roll_back(int n, int vertex, int numVerts, int* cycle, int* diffList, int* available) {
 	numVerts--;
 	cycle[numVerts] = -1;
-	int diffToRollBack = (cycle[numVerts-1] - next) % n;
-	diffList[diffToRollBack]--;
-	diffList[n-diffToRollBack]--;
+	decrease_diffs(n, cycle[numVerts-1], vertex, diffList);
+	available[vertex] = 1;
 	return numVerts;
 }
 
@@ -55,17 +53,56 @@ inline int add_to_cycle() {
 }
 
 /*
+ * Remember to take into account the infinity vertex, which is n for us.
+ */
+inline bool increase_diffs(int n, int previous, int next, int* diffList) {
+	// Either this vertex or the next is the infinity vertex
+	if(previous == n || next == n) {
+		return true;
+	}
+	int diff1 = (next - previous) % n;
+	int diff2 = n - diff1;
+	if(diffList[diff1] > 1 || diffList[diff2] > 1) {
+		return false;
+	} else {
+		diffList[diff1]++;
+		diffList[diff2]++;
+		return true;
+	}
+}
+
+inline void decrease_diffs(int n, int previous, int next, int* diffList) {
+	if(previous == n || next == n) {
+		return;
+	}
+
+	int diff1 = (next - previous) % n;
+	int diff2 = n - diff1;
+
+	diffList[diff1]--;
+	diffList[diff2]--;
+
+	return;
+}
+
+/*
  *
  */
-void expand_node() {
+void expand_node(int n, int* available, vector<int>& stack) {
+	for(int i = 0; i < n; i++) {
+		if(available[i]) {
+			stack.push_back(i);
+		}
+	}
 
+	return;
 }
 
 /**
  *
- * @param available - the vertices we haven't used yet.
+ * @param available - the vertices we haven't yet used in a cycle.
  */
-int* find_cycle(int n, int* factor, int numFactors, int cycleID, vector<int>& stack, int** cycleList, int* diffList, vector<int>& available) {
+bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<int>& stack, int** cycleList, int* diffList, int* available) {
 	int cycleLen = factor[cycleID];
 	int* cycle = cycleList[cycleID];
 
@@ -81,58 +118,62 @@ int* find_cycle(int n, int* factor, int numFactors, int cycleID, vector<int>& st
 		int next = stack[stack.size()-1];
 		stack.pop_back();
 
+		// If all of the children of a vertex are dead ends, we need to roll the vertex up.
+
+
 		/* Find out if we would have too many instances of some difference if
 		 * we put this on the cycle. If so, don't put this vertex on cycle.
 		 */
 		if(numVerts > 0) {
-			int diff1 = (cycle[numVerts-1] - next) % n;
-			int diff2 = n - diff1;
-			if(diffList[diff1] > 1 || diffList[diff2] > 1) {
-				continue;
-			} else {
+			if(increase_diffs(n, cycle[numVerts-1], next, diffList)) {
 				cycle[numVerts] = next;
 				numVerts++;
-				updateDiffList(diffList, diff1, diff2);
+				available[next] = 0;
+			} else {
+				continue;
 			}
 		}
 
 		// Check if we have a whole cycle
 		if(numVerts == cycleLen) {
 			// Check differences given by first and last vertex of cycle
-			int diff1 = (cycle[numVerts-1] - cycle[0]) % n;
-			int diff2 = n - diff1;
-			if(diffList[diff1] > 1 || diffList[diff2] > 1) {
-				// Revert the cycle. Roll back differences - TODO abstract out into function.
-				numVerts = roll_back(n, next, numVerts, cycle, diffList);
+			if(!increase_diffs(n, cycle[0], cycle[numVerts-1], diffList)) {
+				numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
 				continue;
 			}
 
 			// Check if we have a 2-factor
 			if(cycleID == numFactors) {
 				// Everything should be dandy in terms of differences.
-				return cycle;
+				return true;
 			} else {
-				// TODO update the list of available vertices before calling!
 				int* nextCycle = find_cycle(n, factor, numFactors, cycleID+1, stack, cycleList, diffList, available);
 				// See if we got stuck down the line.
 				if(nextCycle == NULL) {
 					// Roll the cycle back
-					numVerts = roll_back(n, next, numVerts, cycle, diffList);
+					numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
 					continue;
 				}
 
 				cycleList[cycleID] = cycle;
-				return cycle;
+				return true;
 			}
 		}
 
-		// Update stack
-
-
+		/* Update stack. If we reach this line, it means we have put something on cycle,
+		 * because we always 'continue' if we roll the cycle back or do nothing.
+		 */
+		expand_node(n, available, stack);
 	}
 
 	// No twofold 2-starter possible, return null.
-	return NULL;
+	return false;
+}
+
+int main() {
+
+	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	return 0;
 }
 
 
