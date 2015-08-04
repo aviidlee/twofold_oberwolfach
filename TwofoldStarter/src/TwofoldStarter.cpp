@@ -33,6 +33,14 @@ void print_int_array(int len, int* array) {
 	cout << array[len-1] << "]" << endl;
 }
 
+void init_available(int len, int* available) {
+	for(int i = 0; i < len; i++) {
+		available[i] = 1;
+	}
+
+	return;
+}
+
 void initialise_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
 	for(int i = 0; i < numCycles; i++) {
 		cycleList[i] = new Vertex[factor[i]]();
@@ -41,17 +49,13 @@ void initialise_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
 	return;
 }
 
-void init_theStack(int n, vector<Vertex>& theStack) {
+void init_theStack(int n, int* available, vector<Vertex>& theStack) {
 	for(int i = 0; i < n; i++) {
-		Vertex v;
-		v.vertex = i;
-		theStack.push_back(v);
-	}
-}
-
-void init_available(int len, int* available) {
-	for(int i = 0; i < len; i++) {
-		available[i] = 1;
+		if(available[i]) {
+			Vertex v;
+			v.vertex = i;
+			theStack.push_back(v);
+		}
 	}
 
 	return;
@@ -128,7 +132,9 @@ void expand_Vertex(int n, int parent, int* available, vector<Vertex>& theStack) 
  *
  * @param available - the vertices we haven't yet used in a cycle.
  */
-bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>& theStack, Vertex** cycleList, int* diffList, int* available) {
+bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleList, int* diffList, int* available) {
+	vector<Vertex> theStack;
+	init_theStack(n, available, theStack);
 	cout << "Looking for cycle number " << cycleID << endl;
 	cout << "The available array: " << endl;
 	print_int_array(n, available);
@@ -151,8 +157,10 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 		int next = nextVertex.vertex;
 		theStack.pop_back();
 
+		cout << "Looking at vertex " << next << endl;
+
 		// If all of the children of a vertex on the cycle are dead ends, we need to roll the vertex up.
-		while(numVerts >0 && nextVertex.parent != cycle[numVerts-1].vertex) {
+		while(numVerts > 0 && nextVertex.parent != cycle[numVerts-1].vertex) {
 			cout << "I am " << next << " , expecting " << cycle[numVerts-1].vertex<< " as my parent" << endl;
 			cout << "Instead I got " << nextVertex.parent << endl;
 			numVerts = roll_back(n, cycle[numVerts-1].vertex, numVerts, cycle, diffList, available);
@@ -163,6 +171,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 		 */
 		if(numVerts > 0) {
 			if(increase_diffs(n, cycle[numVerts-1].vertex, next, diffList)) {
+				cout << "Putting " << next << " on cycle" << endl;
 				cycle[numVerts] = nextVertex;
 				numVerts++;
 				available[next] = 0;
@@ -170,6 +179,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 				continue;
 			}
 		} else {
+			cout << "Putting " << next << " on cycle" << endl;
 			cycle[numVerts] = nextVertex;
 			numVerts++;
 			available[next] = 0;
@@ -189,7 +199,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 				return true;
 			} else {
 				// See if we got stuck down the line.
-				if(!find_cycle(n, factor, numFactors, cycleID+1, theStack, cycleList, diffList, available)) {
+				if(!find_cycle(n, factor, numFactors, cycleID+1, cycleList, diffList, available)) {
 					// Roll the cycle back
 					numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
 					continue;
@@ -205,7 +215,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 		/* Update theStack. If we reach this line, it means we have put something on cycle,
 		 * because we always 'continue' if we roll the cycle back or do nothing.
 		 */
-		expand_Vertex(n, cycle[numVerts-1].vertex, available, theStack);
+		expand_Vertex(n, next, available, theStack);
 	}
 
 	// No twofold 2-starter possible, return false.
@@ -216,12 +226,10 @@ bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList) {
 	// The current list of differences, with diffList[i] = number of occurrences of difference i.
 	int diffList[n] = {0};
 	initialise_cycle_list(numCycles, factor, cycleList);
-	vector<Vertex> theStack;
-	init_theStack(n, theStack);
-	int available[n+1];
-	init_available(n+1, available);
+	int available[n];
+	init_available(n, available);
 
-	return find_cycle(n, factor, numCycles, 0, theStack, cycleList, diffList, available);
+	return find_cycle(n, factor, numCycles, 0, cycleList, diffList, available);
 }
 
 
