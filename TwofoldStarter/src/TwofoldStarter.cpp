@@ -7,6 +7,9 @@
 //============================================================================
 #include "twofoldstarter.h"
 
+// GLOBALS
+int INF;
+
 /*
  * For some reason cannot overload ostream's <<
  */
@@ -61,17 +64,36 @@ void init_theStack(int n, int* available, vector<Vertex>& theStack) {
 	return;
 }
 
+/**
+ * @return num (mod modBy). In partic return value is nonnegative.
+ */
+inline int mod(int modBy, int num) {
+	int modded = num % modBy;
+	cout << "modded: " << modded << endl;
+	if(modded < 0) {
+		return modBy + modded;
+	} else {
+		return modded;
+	}
+}
+
 /*
- * Remember to take into account the infinity vertex, which is n for us.
+ * Remember to take into account the infinity vertex, which is n-1 for us.
  */
 inline bool increase_diffs(int n, int previous, int next, int* diffList) {
+	cout << "previous: " << previous << ", next: " << next << endl;
+
 	// Either this vertex or the next is the infinity vertex
-	if(previous == n || next == n) {
+	if(previous == (n-1) || next == (n-1)) {
 		return true;
 	}
-	int diff1 = (next - previous) % (n-1);
+
+	int diff1 = mod(n-1, previous - next);
 	int diff2 = (n-1) - diff1;
+	cout << "diff1, diff2: " << diff1 << " ," << diff2;
+
 	if(diffList[diff1] > 1 || diffList[diff2] > 1) {
+		cout << "Difference " << diff1 << " or " << diff2 << " occurs too many times" << endl;
 		return false;
 	} else {
 		diffList[diff1]++;
@@ -81,11 +103,11 @@ inline bool increase_diffs(int n, int previous, int next, int* diffList) {
 }
 
 inline void decrease_diffs(int n, int previous, int next, int* diffList) {
-	if(previous == n || next == n) {
+	if(previous == (n-1) || next == (n-1)) {
 		return;
 	}
 
-	int diff1 = (next - previous) % (n-1);
+	int diff1 = mod(n-1, previous - next);
 	int diff2 = (n-1) - diff1;
 
 	diffList[diff1]--;
@@ -140,7 +162,8 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 	print_int_array(n, available);
 	cout << "Current cycleList: ";
 	cout << str_cycle_list(numFactors, factor, cycleList) << endl;
-
+	cout << "differences: ";
+	print_int_array(n-1, diffList);
 	int cycleLen = factor[cycleID];
 	Vertex* cycle = cycleList[cycleID];
 
@@ -215,6 +238,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 		/* Update theStack. If we reach this line, it means we have put something on cycle,
 		 * because we always 'continue' if we roll the cycle back or do nothing.
 		 */
+		cout << "Expanding the vertex " << next << endl;
 		expand_Vertex(n, next, available, theStack);
 	}
 
@@ -223,8 +247,9 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 }
 
 bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList) {
+	INF = n-1;
 	// The current list of differences, with diffList[i] = number of occurrences of difference i.
-	int diffList[n] = {0};
+	int diffList[n-1] = {0};
 	initialise_cycle_list(numCycles, factor, cycleList);
 	int available[n];
 	init_available(n, available);
