@@ -5,38 +5,24 @@
 // Copyright   : Your copyright notice
 // Description : Finds a twofold 2-starter, if one exists.
 //============================================================================
-
-/*
- * TODO next:
- *
- */
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <stdlib.h>
-#include "windows.h"
-#include "vertex.h"
-
-using std::vector;
-using std::cout;
-using std::cin;
-using std::endl;
-using std::ostream;
+#include "twofoldstarter.h"
 
 /*
  * For some reason cannot overload ostream's <<
  */
-void print_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
-	cout << "[";
+string str_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
+	stringstream ss;
+	ss << "[";
 	for(int i = 0; i < numCycles; i++) {
-		cout << "[";
+		ss << "[";
 		for(int j = 0; j < factor[i]-1; j++) {
-			cout << cycleList[i][j].vertex << ", ";
+			ss << cycleList[i][j].vertex << ", ";
 		}
-		cout << cycleList[i][factor[i]-1].vertex << "]";
+		ss << cycleList[i][factor[i]-1].vertex << "]";
 	}
-	cout << "]" << endl;
+	ss << "]";
+
+	return ss.str();
 }
 
 void print_int_array(int len, int* array) {
@@ -147,8 +133,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, vector<Vertex>&
 	cout << "The available array: " << endl;
 	print_int_array(n, available);
 	cout << "Current cycleList: ";
-	print_cycle_list(numFactors, factor, cycleList);
-	cout << endl;
+	cout << str_cycle_list(numFactors, factor, cycleList) << endl;
 
 	int cycleLen = factor[cycleID];
 	Vertex* cycle = cycleList[cycleID];
@@ -239,56 +224,7 @@ bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList) {
 	return find_cycle(n, factor, numCycles, 0, theStack, cycleList, diffList, available);
 }
 
-int main(int argc, char** argv) {
 
-	cout << "Looking for amazingly awesome twofold 2-factors!!!" << endl;
-	cout << "This is version 1" << endl;
-
-	if(argc < 3) {
-		cout << "Usage: findstarter n t l_1 l_2 ... l_t where n is number of Vertexs, t is number of cycles, l_i are cycle lengths" << endl;
-		return -1;
-	}
-
-	int n = atoi(argv[1]);
-	int numCycles = atoi(argv[2]);
-	if(argc - 3 != numCycles) {
-		cout << "Too few or too many cycle lengths entered." << endl;
-		return -1;
-	}
-
-	if(n < 3 || numCycles < 1) {
-		cout << "Too few vertices or too few cycles!" << endl;
-		return -1;
-	}
-
-	int cycleLenSum = 0;
-	int factor[numCycles];
-	for(int i = 0; i < numCycles; i++) {
-		int len = atoi(argv[3+i]);
-		factor[i] = len;
-		cycleLenSum += len;
-		if(len < 3) {
-			cout << "Cycle length must be at least 3." << endl;
-			return -1;
-		}
-	}
-
-	if(n != cycleLenSum) {
-		cout << "Your cycle lengths do not sum to " << n << endl;
-		return -1;
-	}
-	cout << "Trying to compute a twofold 2-starter with cycle lengths: " << endl;
-	print_int_array(numCycles, factor);
-
-	Vertex* cycleList[numCycles];
-	if(find_starter(n, numCycles, factor, cycleList)) {
-		print_cycle_list(numCycles, factor, cycleList);
-	} else {
-		cout << "No 2-starter found!" << endl;
-	}
-
-	return 0;
-}
 
 
 
