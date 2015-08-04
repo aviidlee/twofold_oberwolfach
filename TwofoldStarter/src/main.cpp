@@ -9,7 +9,7 @@
 
 int main(int argc, char** argv) {
 
-	cout << "Looking for amazingly awesome twofold 2-factors!!!" << endl;
+	cout << "Looking for amazingly awesome twofold 2-starters!!!" << endl;
 	cout << "This is version 1" << endl;
 
 	if(argc < 3) {

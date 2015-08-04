@@ -19,7 +19,7 @@ struct Vertex {
 		parent = -1;
 	}
 
-	Vertex() : vertex(-1), parent(-1) {}
+	Vertex() : vertex(-1), parent(-2) {}
 
 	friend std::ostream& operator<<(std::ostream& os, const Vertex& vert);
 };

@@ -81,7 +81,7 @@ inline int mod(int modBy, int num) {
  * Remember to take into account the infinity vertex, which is n-1 for us.
  */
 inline bool increase_diffs(int n, int previous, int next, int* diffList) {
-	cout << "previous: " << previous << ", next: " << next << endl;
+	//cout << "previous: " << previous << ", next: " << next << endl;
 
 	// Either this vertex or the next is the infinity vertex
 	if(previous == (n-1) || next == (n-1)) {
@@ -90,10 +90,10 @@ inline bool increase_diffs(int n, int previous, int next, int* diffList) {
 
 	int diff1 = mod(n-1, previous - next);
 	int diff2 = (n-1) - diff1;
-	cout << "diff1, diff2: " << diff1 << " ," << diff2;
+	//cout << "diff1, diff2: " << diff1 << " ," << diff2;
 
 	if(diffList[diff1] > 1 || diffList[diff2] > 1) {
-		cout << "Difference " << diff1 << " or " << diff2 << " occurs too many times" << endl;
+		//cout << "Difference " << diff1 << " or " << diff2 << " occurs too many times" << endl;
 		return false;
 	} else {
 		diffList[diff1]++;
@@ -103,6 +103,8 @@ inline bool increase_diffs(int n, int previous, int next, int* diffList) {
 }
 
 inline void decrease_diffs(int n, int previous, int next, int* diffList) {
+	cout << "decreasing diffs!" << endl;
+
 	if(previous == (n-1) || next == (n-1)) {
 		return;
 	}
@@ -120,10 +122,14 @@ inline void decrease_diffs(int n, int previous, int next, int* diffList) {
  * Return the number of vertices on the cycle.
  */
 inline int roll_back(int n, int vertex, int numVerts, Vertex* cycle, int* diffList, int* available) {
+	cout << "Rolling back vertex " << vertex << endl;
 	numVerts--;
 	cycle[numVerts].vertex = -1;
-	decrease_diffs(n, cycle[numVerts-1].vertex, vertex, diffList);
+	if(numVerts > 0) {
+		decrease_diffs(n, cycle[numVerts-1].vertex, vertex, diffList);
+	}
 	available[vertex] = 1;
+	cout << "Cycle length is now " << numVerts << endl;
 	return numVerts;
 }
 
@@ -180,10 +186,14 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 		int next = nextVertex.vertex;
 		theStack.pop_back();
 
+		cout << "cycle list: " << str_cycle_list(numFactors, factor, cycleList) << endl;
+		cout << "Current diff list: ";
+		print_int_array(n-1, diffList);
 		cout << "Looking at vertex " << next << endl;
 
 		// If all of the children of a vertex on the cycle are dead ends, we need to roll the vertex up.
 		while(numVerts > 0 && nextVertex.parent != cycle[numVerts-1].vertex) {
+			cout << str_cycle_list(numFactors, factor, cycleList) << endl;
 			cout << "I am " << next << " , expecting " << cycle[numVerts-1].vertex<< " as my parent" << endl;
 			cout << "Instead I got " << nextVertex.parent << endl;
 			numVerts = roll_back(n, cycle[numVerts-1].vertex, numVerts, cycle, diffList, available);
@@ -198,6 +208,8 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 				cycle[numVerts] = nextVertex;
 				numVerts++;
 				available[next] = 0;
+				cout << "Current diff list: ";
+				print_int_array(n-1, diffList);
 			} else {
 				continue;
 			}
@@ -208,10 +220,13 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 			available[next] = 0;
 		}
 
+		cout << "Current diff list: ";
+		print_int_array(n-1, diffList);
+
 		// Check if we have a whole cycle
 		if(numVerts == cycleLen) {
 			// Check differences given by first and last vertex of cycle
-			if(!increase_diffs(n, cycle[0].vertex, cycle[numVerts-1].vertex, diffList)) {
+			if(!increase_diffs(n, cycle[0].vertex, next, diffList)) {
 				numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
 				continue;
 			}
@@ -219,17 +234,20 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 			// Check if we have a 2-factor
 			if(cycleID == numFactors-1) {
 				// Everything should be dandy in terms of differences.
+				cout << "Found a twofold 2-starter, returning!" << endl;
 				return true;
 			} else {
 				// See if we got stuck down the line.
 				if(!find_cycle(n, factor, numFactors, cycleID+1, cycleList, diffList, available)) {
 					// Roll the cycle back
 					numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
+					// Remember to change diffs for first and last vertices as well
+					decrease_diffs(n, cycle[0].vertex, next, diffList);
 					continue;
 				}
 
 				cout << "*GASP* I think we found a cycle" << endl;
-				cycleList[cycleID] = cycle;
+				// cycleList[cycleID] = cycle;
 
 				return true;
 			}
