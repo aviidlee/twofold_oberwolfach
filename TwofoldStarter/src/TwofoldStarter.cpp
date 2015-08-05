@@ -181,13 +181,14 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 	 * I.e., no difference occurs more than twice.
 	 */
 	while(theStack.size() != 0) {
+		cout << "Looking for vertex number " << numVerts << " on cycle number " << cycleID << endl;
 		// Get the next candidate vertex from the theStack.
 		Vertex nextVertex = theStack[theStack.size()-1];
 		int next = nextVertex.vertex;
 		theStack.pop_back();
 
 		cout << "cycle list: " << str_cycle_list(numFactors, factor, cycleList) << endl;
-		cout << "Current diff list: ";
+		cout << "While loop start diff list: ";
 		print_int_array(n-1, diffList);
 		cout << "Looking at vertex " << next << endl;
 
@@ -214,6 +215,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 				continue;
 			}
 		} else {
+			// Very first vertex on the cycle, don't need to calculate differences.
 			cout << "Putting " << next << " on cycle" << endl;
 			cycle[numVerts] = nextVertex;
 			numVerts++;
@@ -225,6 +227,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 
 		// Check if we have a whole cycle
 		if(numVerts == cycleLen) {
+			cout << "We have a whole cycle, but it may get rolled back... " << endl;
 			// Check differences given by first and last vertex of cycle
 			if(!increase_diffs(n, cycle[0].vertex, next, diffList)) {
 				numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
@@ -242,6 +245,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 					// Roll the cycle back
 					numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
 					// Remember to change diffs for first and last vertices as well
+					cout << "Updating diffs for first and last vertex of cycle." << endl;
 					decrease_diffs(n, cycle[0].vertex, next, diffList);
 					continue;
 				}
@@ -261,6 +265,11 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 	}
 
 	// No twofold 2-starter possible, return false.
+	cout << "Could not find cycle, returning false" << endl;
+	while(numVerts > 0) {
+		numVerts = roll_back(n, cycle[numVerts-1].vertex, numVerts, cycle, diffList, available);
+	}
+
 	return false;
 }
 
