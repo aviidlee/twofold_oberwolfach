@@ -284,7 +284,3 @@ bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList) {
 	return find_cycle(n, factor, numCycles, 0, cycleList, diffList, available);
 }
 
-
-
-
-
