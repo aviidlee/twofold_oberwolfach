@@ -1,11 +1,13 @@
 //============================================================================
 // Name        : TwofoldStarter.cpp
-// Author      : 
-// Version     :
-// Copyright   : Your copyright notice
+// Author      : Alex Lee
+// Version     : 1.0
 // Description : Finds a twofold 2-starter, if one exists.
 //============================================================================
 #include "twofoldstarter.h"
+
+#define DEBUG false
+#define MSG(msg, info) if(DEBUG) {std::cout << msg << info << std::endl;}
 
 // GLOBALS
 int INF;
@@ -84,7 +86,6 @@ inline int mod(int modBy, int num) {
  * Remember to take into account the infinity vertex, which is n-1 for us.
  */
 inline bool increase_diffs(int n, int previous, int next, int* diffList) {
-	//cout << "previous: " << previous << ", next: " << next << endl;
 
 	// Either this vertex or the next is the infinity vertex
 	if(previous == (n-1) || next == (n-1)) {
@@ -93,10 +94,8 @@ inline bool increase_diffs(int n, int previous, int next, int* diffList) {
 
 	int diff1 = mod(n-1, previous - next);
 	int diff2 = (n-1) - diff1;
-	//cout << "diff1, diff2: " << diff1 << " ," << diff2;
 
 	if(diffList[diff1] > 1 || diffList[diff2] > 1) {
-		//cout << "Difference " << diff1 << " or " << diff2 << " occurs too many times" << endl;
 		return false;
 	} else {
 		diffList[diff1]++;
@@ -106,7 +105,7 @@ inline bool increase_diffs(int n, int previous, int next, int* diffList) {
 }
 
 inline void decrease_diffs(int n, int previous, int next, int* diffList) {
-	cout << "decreasing diffs!" << endl;
+	MSG("decreasing diffs", "")
 
 	if(previous == (n-1) || next == (n-1)) {
 		return;
@@ -125,14 +124,14 @@ inline void decrease_diffs(int n, int previous, int next, int* diffList) {
  * Return the number of vertices on the cycle.
  */
 inline int roll_back(int n, int vertex, int numVerts, Vertex* cycle, int* diffList, int* available) {
-	cout << "Rolling back vertex " << vertex << endl;
+	MSG("Rolling back vertex ", vertex)
 	numVerts--;
 	cycle[numVerts].vertex = -1;
 	if(numVerts > 0) {
 		decrease_diffs(n, cycle[numVerts-1].vertex, vertex, diffList);
 	}
 	available[vertex] = 1;
-	cout << "Cycle length is now " << numVerts << endl;
+	MSG("Cycle length is now ", numVerts)
 	return numVerts;
 }
 
@@ -166,13 +165,12 @@ void expand_Vertex(int n, int parent, int* available, vector<Vertex>& theStack) 
 bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleList, int* diffList, int* available) {
 	vector<Vertex> theStack;
 	init_theStack(n, available, theStack);
-	cout << "Looking for cycle number " << cycleID << endl;
-	cout << "The available array: " << endl;
-	//print_int_array(n, available);
-	cout << "Current cycleList: ";
-	cout << str_cycle_list(numFactors, factor, cycleList) << endl;
-	cout << "differences: ";
-	//print_int_array(n-1, diffList);
+
+	MSG("Looking for cycle number ", cycleID)
+	MSG("The available array: ", str_int_array(n, available))
+	MSG("Current cycleList: ", str_cycle_list(numFactors, factor, cycleList))
+	MSG("Differences: ", str_int_array(n-1, diffList))
+
 	int cycleLen = factor[cycleID];
 	Vertex* cycle = cycleList[cycleID];
 
@@ -180,20 +178,21 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 	int numVerts = 0;
 
 	/*
-	 * Loop invariant: No element of diffList is greater than 2.
+	 * Loop invariant: No element of diffList is greater than 2 (or less than 0).
 	 * I.e., no difference occurs more than twice.
 	 */
 	while(theStack.size() != 0) {
-		cout << "Looking for vertex number " << numVerts << " on cycle number " << cycleID << endl;
+		MSG("Looking for vertex number ", numVerts)
+		MSG("On cycle no. ", cycleID)
+
 		// Get the next candidate vertex from the theStack.
 		Vertex nextVertex = theStack[theStack.size()-1];
 		int next = nextVertex.vertex;
 		theStack.pop_back();
 
-		cout << "cycle list: " << str_cycle_list(numFactors, factor, cycleList) << endl;
-		cout << "While loop start diff list: ";
-		//print_int_array(n-1, diffList);
-		cout << "Looking at vertex " << next << endl;
+		MSG("cycle list: ", str_cycle_list(numFactors, factor, cycleList))
+		MSG("While loop start diff list: ", str_int_array(n-1, diffList))
+		MSG("Looking at vertex ", next)
 
 		// If all of the children of a vertex on the cycle are dead ends, we need to roll the vertex up.
 		while(numVerts > 0 && nextVertex.parent != cycle[numVerts-1].vertex) {
