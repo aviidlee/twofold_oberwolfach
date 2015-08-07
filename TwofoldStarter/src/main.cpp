@@ -7,21 +7,28 @@
 
 #include "twofoldstarter.h"
 #include "checkers.h"
+#include <fstream>
+
+using std::ofstream;
+using std::stringstream;
 
 int main(int argc, char** argv) {
 
-	cout << "Looking for amazingly awesome twofold 2-starters!!!" << endl;
+	cout << "This is a program to find twofold 2-starters" << endl;
 	cout << "This is version 1" << endl;
 
-	if(argc < 3) {
-		cout << "Usage: findstarter n t l_1 l_2 ... l_t where n is number of Vertexs, t is number of cycles, l_i are cycle lengths" << endl;
+	if(argc < 4) {
+		cout << "Usage: TwofoldStarter.exe n t l_1 l_2 ... l_t fileName" << endl;
+		cout << "where n is number of vertices, t is number of cycles, l_i are cycle lengths" << endl;
+		cout << "and where fileName is the file you want to output the result to." << endl;
 		return -1;
 	}
 
 	int n = atoi(argv[1]);
 	int numCycles = atoi(argv[2]);
-	if(argc - 3 != numCycles) {
-		cout << "Too few or too many cycle lengths entered." << endl;
+	if(argc - 4 != numCycles) {
+		cout << "Too few or too many cycle lengths entered. Or maybe you forgot the file name?" << endl;
+		cout << "But have I told you how amazingly good looking you are?" << endl;
 		return -1;
 	}
 
@@ -46,24 +53,49 @@ int main(int argc, char** argv) {
 		cout << "Your cycle lengths do not sum to " << n << endl;
 		return -1;
 	}
-	cout << "Trying to compute a twofold 2-starter with cycle lengths: " << endl;
-	cout << str_int_array(numCycles, factor) << endl;
+
+	char* fileName = argv[argc-1];
+	ofstream outFile(fileName, std::ios_base::app);
+	if(!outFile.is_open()) {
+		cout << "Could not open output file." << endl;
+		return -2;
+	} else {
+		outFile << n << "; " << str_int_array(numCycles, factor) << " : ";
+	}
+
+	cout << "Trying to compute a twofold 2-starter with cycle lengths: "
+		 << str_int_array(numCycles, factor) << endl;
+	cout << "Vertices are labelled from 0 to " << n-1 << " with "
+		 << n-1 << " being infinity." << endl;
+	cout << "Result will be appended to " << fileName << endl;
 
 	Vertex* cycleList[numCycles];
+	stringstream ssCycleList;
+	string starter;
+
 	if(find_starter(n, numCycles, factor, cycleList)) {
-		cout << str_cycle_list(numCycles, factor, cycleList) << endl;
+		ssCycleList << str_cycle_list(numCycles, factor, cycleList);
+		starter = ssCycleList.str();
+		cout << "Your beautiful twofold 2-starter: ";
+		cout <<  starter << endl;
+
+		outFile << starter;
+
+		// Run sanity checks.
+		if(verify(n, numCycles, factor, cycleList)) {
+			cout << "It looks to be correct!" << endl;
+			outFile << " PASS" << endl;
+		} else {
+			cout << "Failed sanity checks! Differences are incorrect or vertices repeat." << endl;
+			cout << "Oh Knuth, Shannon and Erdos have mercy, the code has bugs." << endl;
+			outFile << " FAIL!" << endl;
+		}
 	} else {
 		cout << "No 2-starter found!" << endl;
+		outFile << "--" << endl;
 	}
 
-	// Run sanity checks.
-	if(verify(n, numCycles, factor, cycleList)) {
-		cout << "It looks to be correct!" << endl;
-	} else {
-		cout << "Failed sanity checks! Differences are incorrect or vertices repeat." << endl;
-	}
-
-
+	outFile.close();
 	return 0;
 }
 

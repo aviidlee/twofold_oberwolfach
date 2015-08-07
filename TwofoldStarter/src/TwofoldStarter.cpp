@@ -69,19 +69,6 @@ void init_theStack(int n, int* available, vector<Vertex>& theStack) {
 	return;
 }
 
-/**
- * @return num (mod modBy). In partic return value is nonnegative.
- */
-inline int mod(int modBy, int num) {
-	int modded = num % modBy;
-
-	if(modded < 0) {
-		return modBy + modded;
-	} else {
-		return modded;
-	}
-}
-
 /*
  * Remember to take into account the infinity vertex, which is n-1 for us.
  */
@@ -105,7 +92,7 @@ inline bool increase_diffs(int n, int previous, int next, int* diffList) {
 }
 
 inline void decrease_diffs(int n, int previous, int next, int* diffList) {
-	MSG("decreasing diffs", "")
+	//MSG("decreasing diffs", "")
 
 	if(previous == (n-1) || next == (n-1)) {
 		return;
@@ -124,14 +111,14 @@ inline void decrease_diffs(int n, int previous, int next, int* diffList) {
  * Return the number of vertices on the cycle.
  */
 inline int roll_back(int n, int vertex, int numVerts, Vertex* cycle, int* diffList, int* available) {
-	MSG("Rolling back vertex ", vertex)
+	//MSG("Rolling back vertex ", vertex)
 	numVerts--;
 	cycle[numVerts].vertex = -1;
 	if(numVerts > 0) {
 		decrease_diffs(n, cycle[numVerts-1].vertex, vertex, diffList);
 	}
 	available[vertex] = 1;
-	MSG("Cycle length is now ", numVerts)
+	//MSG("Cycle length is now ", numVerts)
 	return numVerts;
 }
 
@@ -163,13 +150,14 @@ void expand_Vertex(int n, int parent, int* available, vector<Vertex>& theStack) 
  * @param available - the vertices we haven't yet used in a cycle.
  */
 bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleList, int* diffList, int* available) {
+
 	vector<Vertex> theStack;
 	init_theStack(n, available, theStack);
 
 	MSG("Looking for cycle number ", cycleID)
-	MSG("The available array: ", str_int_array(n, available))
-	MSG("Current cycleList: ", str_cycle_list(numFactors, factor, cycleList))
-	MSG("Differences: ", str_int_array(n-1, diffList))
+	//MSG("The available array: ", str_int_array(n, available))
+	//MSG("Current cycleList: ", str_cycle_list(numFactors, factor, cycleList))
+	//MSG("Differences: ", str_int_array(n-1, diffList))
 
 	int cycleLen = factor[cycleID];
 	Vertex* cycle = cycleList[cycleID];
@@ -182,23 +170,23 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 	 * I.e., no difference occurs more than twice.
 	 */
 	while(theStack.size() != 0) {
-		MSG("Looking for vertex number ", numVerts)
-		MSG("On cycle no. ", cycleID)
+		//MSG("Looking for vertex number ", numVerts)
+		//MSG("On cycle no. ", cycleID)
 
 		// Get the next candidate vertex from the theStack.
 		Vertex nextVertex = theStack[theStack.size()-1];
 		int next = nextVertex.vertex;
 		theStack.pop_back();
 
-		MSG("cycle list: ", str_cycle_list(numFactors, factor, cycleList))
-		MSG("While loop start diff list: ", str_int_array(n-1, diffList))
-		MSG("Looking at vertex ", next)
+		//MSG("cycle list: ", str_cycle_list(numFactors, factor, cycleList))
+		//MSG("While loop start diff list: ", str_int_array(n-1, diffList))
+		//MSG("Looking at vertex ", next)
 
 		// If all of the children of a vertex on the cycle are dead ends, we need to roll the vertex up.
 		while(numVerts > 0 && nextVertex.parent != cycle[numVerts-1].vertex) {
-			cout << str_cycle_list(numFactors, factor, cycleList) << endl;
-			cout << "I am " << next << " , expecting " << cycle[numVerts-1].vertex<< " as my parent" << endl;
-			cout << "Instead I got " << nextVertex.parent << endl;
+			//cout << str_cycle_list(numFactors, factor, cycleList) << endl;
+			//cout << "I am " << next << " , expecting " << cycle[numVerts-1].vertex<< " as my parent" << endl;
+			//cout << "Instead I got " << nextVertex.parent << endl;
 			numVerts = roll_back(n, cycle[numVerts-1].vertex, numVerts, cycle, diffList, available);
 		}
 
@@ -207,29 +195,26 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 		 */
 		if(numVerts > 0) {
 			if(increase_diffs(n, cycle[numVerts-1].vertex, next, diffList)) {
-				cout << "Putting " << next << " on cycle" << endl;
+				//cout << "Putting " << next << " on cycle" << endl;
 				cycle[numVerts] = nextVertex;
 				numVerts++;
 				available[next] = 0;
-				cout << "Current diff list: ";
+				//cout << "Current diff list: ";
 				//print_int_array(n-1, diffList);
 			} else {
 				continue;
 			}
 		} else {
 			// Very first vertex on the cycle, don't need to calculate differences.
-			cout << "Putting " << next << " on cycle" << endl;
+			//cout << "Putting " << next << " on cycle" << endl;
 			cycle[numVerts] = nextVertex;
 			numVerts++;
 			available[next] = 0;
 		}
 
-		cout << "Current diff list: ";
-		//print_int_array(n-1, diffList);
-
 		// Check if we have a whole cycle
 		if(numVerts == cycleLen) {
-			cout << "We have a whole cycle, but it may get rolled back... " << endl;
+			//cout << "We have a whole cycle, but it may get rolled back... " << endl;
 			// Check differences given by first and last vertex of cycle
 			if(!increase_diffs(n, cycle[0].vertex, next, diffList)) {
 				numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
@@ -239,7 +224,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 			// Check if we have a 2-factor
 			if(cycleID == numFactors-1) {
 				// Everything should be dandy in terms of differences.
-				cout << "Found a twofold 2-starter, returning!" << endl;
+				//cout << "Found a twofold 2-starter, returning!" << endl;
 				return true;
 			} else {
 				// See if we got stuck down the line.
@@ -247,12 +232,12 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 					// Roll the cycle back
 					numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
 					// Remember to change diffs for first and last vertices as well
-					cout << "Updating diffs for first and last vertex of cycle." << endl;
+					//cout << "Updating diffs for first and last vertex of cycle." << endl;
 					decrease_diffs(n, cycle[0].vertex, next, diffList);
 					continue;
 				}
 
-				cout << "*GASP* I think we found a cycle" << endl;
+				//cout << "*GASP* I think we found a cycle" << endl;
 				// cycleList[cycleID] = cycle;
 
 				return true;
@@ -262,12 +247,12 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 		/* Update theStack. If we reach this line, it means we have put something on cycle,
 		 * because we always 'continue' if we roll the cycle back or do nothing.
 		 */
-		cout << "Expanding the vertex " << next << endl;
+		//cout << "Expanding the vertex " << next << endl;
 		expand_Vertex(n, next, available, theStack);
 	}
 
 	// No twofold 2-starter possible, return false.
-	cout << "Could not find cycle, returning false" << endl;
+	//cout << "Could not find cycle, returning false" << endl;
 	while(numVerts > 0) {
 		numVerts = roll_back(n, cycle[numVerts-1].vertex, numVerts, cycle, diffList, available);
 	}

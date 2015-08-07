@@ -30,6 +30,18 @@ bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList);
 bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleList, int* diffList, int* available);
 string str_cycle_list(int numCycles, int* factor, Vertex** cycleList);
 string str_int_array(int len, int* array);
-int mod(int modBy, int num);
+
+/**
+ * @return num (mod modBy). In partic return value is nonnegative.
+ */
+inline int mod(int modBy, int num) {
+	int modded = num % modBy;
+
+	if(modded < 0) {
+		return modBy + modded;
+	} else {
+		return modded;
+	}
+}
 
 #endif /* TWOFOLDSTARTER_H_ */
