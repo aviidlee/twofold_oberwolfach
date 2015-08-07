@@ -6,6 +6,7 @@
  */
 
 #include "twofoldstarter.h"
+#include "checkers.h"
 
 int main(int argc, char** argv) {
 
@@ -46,7 +47,7 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 	cout << "Trying to compute a twofold 2-starter with cycle lengths: " << endl;
-	print_int_array(numCycles, factor);
+	cout << str_int_array(numCycles, factor) << endl;
 
 	Vertex* cycleList[numCycles];
 	if(find_starter(n, numCycles, factor, cycleList)) {
@@ -54,6 +55,14 @@ int main(int argc, char** argv) {
 	} else {
 		cout << "No 2-starter found!" << endl;
 	}
+
+	// Run sanity checks.
+	if(verify(n, numCycles, factor, cycleList)) {
+		cout << "It looks to be correct!" << endl;
+	} else {
+		cout << "Failed sanity checks! Differences are incorrect or vertices repeat." << endl;
+	}
+
 
 	return 0;
 }

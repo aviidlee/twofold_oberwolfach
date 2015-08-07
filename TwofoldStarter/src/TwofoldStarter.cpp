@@ -28,12 +28,15 @@ string str_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
 	return ss.str();
 }
 
-void print_int_array(int len, int* array) {
-	cout << "[";
+string str_int_array(int len, int* array) {
+	stringstream ss;
+	ss << "[";
 	for(int i = 0; i < len-1; i++) {
-		cout << array[i] << ",";
+		ss << array[i] << ",";
 	}
-	cout << array[len-1] << "]" << endl;
+	ss << array[len-1] << "]";
+
+	return ss.str();
 }
 
 void init_available(int len, int* available) {
@@ -69,7 +72,7 @@ void init_theStack(int n, int* available, vector<Vertex>& theStack) {
  */
 inline int mod(int modBy, int num) {
 	int modded = num % modBy;
-	cout << "modded: " << modded << endl;
+
 	if(modded < 0) {
 		return modBy + modded;
 	} else {
@@ -165,11 +168,11 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 	init_theStack(n, available, theStack);
 	cout << "Looking for cycle number " << cycleID << endl;
 	cout << "The available array: " << endl;
-	print_int_array(n, available);
+	//print_int_array(n, available);
 	cout << "Current cycleList: ";
 	cout << str_cycle_list(numFactors, factor, cycleList) << endl;
 	cout << "differences: ";
-	print_int_array(n-1, diffList);
+	//print_int_array(n-1, diffList);
 	int cycleLen = factor[cycleID];
 	Vertex* cycle = cycleList[cycleID];
 
@@ -189,7 +192,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 
 		cout << "cycle list: " << str_cycle_list(numFactors, factor, cycleList) << endl;
 		cout << "While loop start diff list: ";
-		print_int_array(n-1, diffList);
+		//print_int_array(n-1, diffList);
 		cout << "Looking at vertex " << next << endl;
 
 		// If all of the children of a vertex on the cycle are dead ends, we need to roll the vertex up.
@@ -210,7 +213,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 				numVerts++;
 				available[next] = 0;
 				cout << "Current diff list: ";
-				print_int_array(n-1, diffList);
+				//print_int_array(n-1, diffList);
 			} else {
 				continue;
 			}
@@ -223,7 +226,7 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 		}
 
 		cout << "Current diff list: ";
-		print_int_array(n-1, diffList);
+		//print_int_array(n-1, diffList);
 
 		// Check if we have a whole cycle
 		if(numVerts == cycleLen) {
