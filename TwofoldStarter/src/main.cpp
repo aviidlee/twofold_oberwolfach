@@ -95,6 +95,7 @@ int main(int argc, char** argv) {
 		outFile << "--" << endl;
 	}
 
+	cout << endl;
 	outFile.close();
 	return 0;
 }

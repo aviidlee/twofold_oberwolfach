@@ -136,9 +136,10 @@ inline int add_to_cycle() {
 void expand_Vertex(int n, int parent, int* available, vector<Vertex>& theStack) {
 	for(int i = 0; i < n; i++) {
 		if(available[i]) {
-			Vertex* vertex = new Vertex(i);
-			vertex->parent = parent;
-			theStack.push_back(*vertex);
+			Vertex v;
+			v.vertex = i;
+			v.parent = parent;
+			theStack.push_back(v);
 		}
 	}
 
@@ -238,7 +239,6 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 				}
 
 				//cout << "*GASP* I think we found a cycle" << endl;
-				// cycleList[cycleID] = cycle;
 
 				return true;
 			}

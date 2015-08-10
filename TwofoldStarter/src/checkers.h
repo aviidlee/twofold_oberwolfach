@@ -35,8 +35,8 @@ bool check_differences(int n, int numCycles, int* factor, Vertex** cycleList) {
 	int N = n-1;
 	int diffList[N] = {0};
 
-	cout << "We are in the group Z_" << N << endl;
-	cout << "Our infinity element is thus " << N << endl;
+	//cout << "We are in the group Z_" << N << endl;
+	//cout << "Our infinity element is thus " << N << endl;
 
 	for(int i = 0; i < numCycles; i++) {
 		Vertex* cycle = cycleList[i];
