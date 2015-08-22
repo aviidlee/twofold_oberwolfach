@@ -5,14 +5,48 @@
  *      Author: alexi_000
  */
 
+#include <fstream>
+
 #include "twofoldstarter.h"
 #include "checkers.h"
-#include <fstream>
+#include "tests.h"
+
+#define TEST false
 
 using std::ofstream;
 using std::stringstream;
 
+/**
+ * *SIGH* Could not get unit tests to work!!!
+ */
+int run_tests() {
+	if(!test_check_differences_all()) {
+		cout << "Difference verifier not working!!" << endl;
+		return -1;
+	}
+
+	if(!test_repeat_all()) {
+		cout << "Repeat checker not working!!" << endl;
+		return -1;
+	}
+
+	cout << "Checker code is working, running OPs" << endl;
+
+	if(!test_all()) {
+		cout << "!!!FAIL!!!" << endl;
+		return -1;
+	}
+
+	cout << "All tests pass" << endl;
+	return 0;
+}
+
 int main(int argc, char** argv) {
+
+	if(TEST) {
+		cout << "Testing code. Change variable TEST to false if you want to use program." << endl;
+		return run_tests();
+	}
 
 	cout << "This is a program to find twofold 2-starters" << endl;
 	cout << "This is version 1" << endl;
@@ -88,7 +122,7 @@ int main(int argc, char** argv) {
 		} else {
 			cout << "Failed sanity checks! Differences are incorrect or vertices repeat." << endl;
 			cout << "Oh Knuth, Shannon and Erdos have mercy, the code has bugs." << endl;
-			outFile << " FAIL!" << endl;
+			outFile << " !!!!!!!FAIL!!!!!!" << endl;
 		}
 	} else {
 		cout << "No 2-starter found!" << endl;

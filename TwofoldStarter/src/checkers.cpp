@@ -7,9 +7,22 @@
 
 #include "checkers.h"
 
+void zero_initialise(int n, int* array) {
+	for(int i = 0; i < n; i++) {
+		array[i] = 0;
+	}
+
+	return;
+}
+
+/**
+ * Return true iff there are no repeated vertices (and thus every vertex
+ * occurs exactly once)
+ */
 bool check_repeat(int n, int numCycles, int* factor, Vertex** cycleList) {
 	// vertices[i] = number of times vertex i occurs.
-	int vertices[n] = {0};
+	int vertices[n];
+	zero_initialise(n, vertices);
 
 	for(int i = 0; i < numCycles; i++) {
 		Vertex* cycle = cycleList[i];
@@ -42,7 +55,8 @@ bool check_repeat(int n, int numCycles, int* factor, Vertex** cycleList) {
  */
 bool check_differences(int n, int numCycles, int* factor, Vertex** cycleList) {
 	int N = n-1;
-	int diffList[N] = {0};
+	int diffList[N];
+	zero_initialise(N, diffList);
 
 	//cout << "We are in the group Z_" << N << endl;
 	//cout << "Our infinity element is thus " << N << endl;

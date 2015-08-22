@@ -7,9 +7,10 @@
 #include "twofoldstarter.h"
 
 #define DEBUG false
-#define MSG(msg, info) if(DEBUG) {std::cout << msg << info << std::endl;}
+#define MSG(msg, info) std::cout << msg << info << std::endl;
 
 // GLOBALS
+// The infinity element, n-1.
 int INF;
 
 /*
@@ -41,6 +42,14 @@ string str_int_array(int len, int* array) {
 	return ss.str();
 }
 
+/**
+ * Marks all the vertices as being available.
+ * Intended to be called by find_starter.
+ *
+ * @param len - the length of the available array, n.
+ * @param available - array in which available[i]= 1 iff vertex
+ * 					  i has not been used in the starter yet.
+ */
 void init_available(int len, int* available) {
 	for(int i = 0; i < len; i++) {
 		available[i] = 1;
@@ -49,6 +58,15 @@ void init_available(int len, int* available) {
 	return;
 }
 
+/**
+ * Initialises an array of array of Vertex objects, where each array
+ * of Vertex objects represents a cycle.
+ *
+ * @param numCycles - the number of cycles in the starter
+ * @param factor - an array of length numCycles in which factor[i] is the
+ * 				   length of the i-th cycle.
+ * @param cycleList - an array of pointers to Vertex objects, of length numCycles.
+ */
 void initialise_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
 	for(int i = 0; i < numCycles; i++) {
 		cycleList[i] = new Vertex[factor[i]]();
@@ -57,6 +75,14 @@ void initialise_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
 	return;
 }
 
+/**
+ * Puts all the unused vertices on the stack.
+ *
+ * @param n - the order of the OP
+ * @param avaiable - array of length n in which available[i] == 1
+ * 					 iff vertex i has not yet been used.
+ * @param theStack - the main stack used in our DFS.
+ */
 void init_theStack(int n, int* available, vector<Vertex>& theStack) {
 	for(int i = 0; i < n; i++) {
 		if(available[i]) {
@@ -70,17 +96,29 @@ void init_theStack(int n, int* available, vector<Vertex>& theStack) {
 }
 
 /*
- * Remember to take into account the infinity vertex, which is n-1 for us.
+ * Calculates the differences given by the vertices previous and next,
+ * and if we do not already have 2 of those differences, increments the difference
+ * list accordingly and returns true. Otherwise, do nothing and return false.
+ *
+ * Uses the global variable INF = n-1, the order of the group.
+ *
+ * @param previous - a vertex
+ * @param next - another vertex distinct from previous
+ * @param diffList - an array of length n-2 in which diffList[i] indicates
+ * 					 the number of times the difference i (modulo n-1) has
+ * 					 occurred so far.
+ * @return true iff the difference previous - next (and next - previous) have
+ * 					occured at most once prior to the call of this method.
  */
-inline bool increase_diffs(int n, int previous, int next, int* diffList) {
+inline bool increase_diffs(int previous, int next, int* diffList) {
 
 	// Either this vertex or the next is the infinity vertex
-	if(previous == (n-1) || next == (n-1)) {
+	if(previous == INF || next == INF) {
 		return true;
 	}
 
-	int diff1 = mod(n-1, previous - next);
-	int diff2 = (n-1) - diff1;
+	int diff1 = mod(INF, previous - next);
+	int diff2 = (INF) - diff1;
 
 	if(diffList[diff1] > 1 || diffList[diff2] > 1) {
 		return false;
@@ -91,15 +129,25 @@ inline bool increase_diffs(int n, int previous, int next, int* diffList) {
 	}
 }
 
-inline void decrease_diffs(int n, int previous, int next, int* diffList) {
+/**
+ * Calculates the difference (modulo n-1) given by the vertices previous
+ * and next, and decreases them by 1. Used when rolling back vertices.
+ *
+ * @param previous - a vertex
+ * @param next - a vertex distinct from previous
+ * @param diffList - an array of length n-2 in which diffList[i] indicates
+ * 					 the number of times the difference i (modulo n-1) has
+ * 					 occurred so far.
+ */
+inline void decrease_diffs(int previous, int next, int* diffList) {
 	//MSG("decreasing diffs", "")
 
-	if(previous == (n-1) || next == (n-1)) {
+	if(previous == INF || next == INF) {
 		return;
 	}
 
-	int diff1 = mod(n-1, previous - next);
-	int diff2 = (n-1) - diff1;
+	int diff1 = mod(INF, previous - next);
+	int diff2 = INF - diff1;
 
 	diffList[diff1]--;
 	diffList[diff2]--;
@@ -108,14 +156,26 @@ inline void decrease_diffs(int n, int previous, int next, int* diffList) {
 }
 
 /**
- * Return the number of vertices on the cycle.
+ * Takes off the last vertex on the cycle, decrementing the counter numVerts,
+ * updating the diffList and available arrays.
+ *
+ * @param cycle - the cycle from which we are rolling back the last (highest index,
+ * 				  at numVertex-1) vertex.
+ * @param diffList - the array of length n-2 in which diffList[i] indicates
+ * 					 the number of times the difference i (modulo n-1) has
+ * 					 occurred so far.
+ * @param available - array of length n in which available[i] == 1
+ * 					  iff vertex i has not yet been used.
+ *
+ * @return the number of vertices now on the cycle (numVerts - 1).
  */
-inline int roll_back(int n, int vertex, int numVerts, Vertex* cycle, int* diffList, int* available) {
+inline int roll_back(int numVerts, Vertex* cycle, int* diffList, int* available) {
 	//MSG("Rolling back vertex ", vertex)
 	numVerts--;
+	int vertex = cycle[numVerts].vertex;
 	cycle[numVerts].vertex = -1;
 	if(numVerts > 0) {
-		decrease_diffs(n, cycle[numVerts-1].vertex, vertex, diffList);
+		decrease_diffs(cycle[numVerts-1].vertex, vertex, diffList);
 	}
 	available[vertex] = 1;
 	//MSG("Cycle length is now ", numVerts)
@@ -131,9 +191,15 @@ inline int add_to_cycle() {
 
 
 /*
+ * Pushes onto the stack all the vertices which could follow the vertex parent;
+ * i.e., all the vertices that have not been used yet. Sets the parent of the each
+ * child vertex to parent.
  *
+ * @param n - the order of the OP
+ * @param parent - the parent vertex, the last vertex on the cycle.
+ * @param theStack - the main stack being used for the DFS.
  */
-void expand_Vertex(int n, int parent, int* available, vector<Vertex>& theStack) {
+void expand_vertex(int n, int parent, int* available, vector<Vertex>& theStack) {
 	for(int i = 0; i < n; i++) {
 		if(available[i]) {
 			Vertex v;
@@ -147,17 +213,22 @@ void expand_Vertex(int n, int parent, int* available, vector<Vertex>& theStack) 
 }
 
 /**
+ * Intended to be called only by find_starter.
+ * Tries to find a cycle
  *
+ * @param n - the order of the OP
+ * @param factor - an array of length numCycles in which factor[i] is the
+ * 				   length of the i-th cycle.
  * @param available - the vertices we haven't yet used in a cycle.
  */
-bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleList, int* diffList, int* available) {
+bool find_cycle(int n, int* factor, int numCycles, int cycleID, Vertex** cycleList, int* diffList, int* available) {
 
 	vector<Vertex> theStack;
 	init_theStack(n, available, theStack);
 
-	MSG("Looking for cycle number ", cycleID)
+	//MSG("Looking for cycle number ", cycleID)
 	//MSG("The available array: ", str_int_array(n, available))
-	//MSG("Current cycleList: ", str_cycle_list(numFactors, factor, cycleList))
+	//MSG("Current cycleList: ", str_cycle_list(numCycles, factor, cycleList))
 	//MSG("Differences: ", str_int_array(n-1, diffList))
 
 	int cycleLen = factor[cycleID];
@@ -179,23 +250,23 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 		int next = nextVertex.vertex;
 		theStack.pop_back();
 
-		//MSG("cycle list: ", str_cycle_list(numFactors, factor, cycleList))
+		//MSG("cycle list: ", str_cycle_list(numCycles, factor, cycleList))
 		//MSG("While loop start diff list: ", str_int_array(n-1, diffList))
 		//MSG("Looking at vertex ", next)
 
 		// If all of the children of a vertex on the cycle are dead ends, we need to roll the vertex up.
 		while(numVerts > 0 && nextVertex.parent != cycle[numVerts-1].vertex) {
-			//cout << str_cycle_list(numFactors, factor, cycleList) << endl;
+			//cout << str_cycle_list(numCycles, factor, cycleList) << endl;
 			//cout << "I am " << next << " , expecting " << cycle[numVerts-1].vertex<< " as my parent" << endl;
 			//cout << "Instead I got " << nextVertex.parent << endl;
-			numVerts = roll_back(n, cycle[numVerts-1].vertex, numVerts, cycle, diffList, available);
+			numVerts = roll_back(numVerts, cycle, diffList, available);
 		}
 
 		/* Find out if we would have too many instances of some difference if
 		 * we put this on the cycle. If so, don't put this vertex on cycle.
 		 */
 		if(numVerts > 0) {
-			if(increase_diffs(n, cycle[numVerts-1].vertex, next, diffList)) {
+			if(increase_diffs(cycle[numVerts-1].vertex, next, diffList)) {
 				//cout << "Putting " << next << " on cycle" << endl;
 				cycle[numVerts] = nextVertex;
 				numVerts++;
@@ -217,24 +288,24 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 		if(numVerts == cycleLen) {
 			//cout << "We have a whole cycle, but it may get rolled back... " << endl;
 			// Check differences given by first and last vertex of cycle
-			if(!increase_diffs(n, cycle[0].vertex, next, diffList)) {
-				numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
+			if(!increase_diffs(cycle[0].vertex, next, diffList)) {
+				numVerts = roll_back(numVerts, cycle, diffList, available);
 				continue;
 			}
 
 			// Check if we have a 2-factor
-			if(cycleID == numFactors-1) {
+			if(cycleID == numCycles-1) {
 				// Everything should be dandy in terms of differences.
 				//cout << "Found a twofold 2-starter, returning!" << endl;
 				return true;
 			} else {
 				// See if we got stuck down the line.
-				if(!find_cycle(n, factor, numFactors, cycleID+1, cycleList, diffList, available)) {
+				if(!find_cycle(n, factor, numCycles, cycleID+1, cycleList, diffList, available)) {
 					// Roll the cycle back
-					numVerts = roll_back(n, next, numVerts, cycle, diffList, available);
+					numVerts = roll_back(numVerts, cycle, diffList, available);
 					// Remember to change diffs for first and last vertices as well
 					//cout << "Updating diffs for first and last vertex of cycle." << endl;
-					decrease_diffs(n, cycle[0].vertex, next, diffList);
+					decrease_diffs(cycle[0].vertex, next, diffList);
 					continue;
 				}
 
@@ -248,13 +319,13 @@ bool find_cycle(int n, int* factor, int numFactors, int cycleID, Vertex** cycleL
 		 * because we always 'continue' if we roll the cycle back or do nothing.
 		 */
 		//cout << "Expanding the vertex " << next << endl;
-		expand_Vertex(n, next, available, theStack);
+		expand_vertex(n, next, available, theStack);
 	}
 
 	// No twofold 2-starter possible, return false.
 	//cout << "Could not find cycle, returning false" << endl;
 	while(numVerts > 0) {
-		numVerts = roll_back(n, cycle[numVerts-1].vertex, numVerts, cycle, diffList, available);
+		numVerts = roll_back(numVerts, cycle, diffList, available);
 	}
 
 	return false;
