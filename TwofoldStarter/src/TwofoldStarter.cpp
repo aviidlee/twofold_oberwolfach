@@ -334,7 +334,12 @@ bool find_cycle(int n, int* factor, int numCycles, int cycleID, Vertex** cycleLi
 bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList) {
 	INF = n-1;
 	// The current list of differences, with diffList[i] = number of occurrences of difference i.
-	int diffList[n-1] = {0};
+	int diffList[n-1];
+
+  for(int i = 0; i < n-1; i++) {
+    diffList[i] = 0;
+  }
+
 	initialise_cycle_list(numCycles, factor, cycleList);
 	int available[n];
 	init_available(n, available);
