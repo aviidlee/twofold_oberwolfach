@@ -119,7 +119,7 @@ inline bool increase_diffs(int previous, int next, int* diffList) {
 		return true;
 	}
 
-	int diff = mod(INF, previous, next);
+	int diff = mod(INF, HALFDIFF, previous, next);
 	if(diffList[diff] < 2) {
 		diffList[diff]++;
 		return true;
@@ -146,7 +146,7 @@ inline void decrease_diffs(int previous, int next, int* diffList) {
 		return;
 	}
 
-	int diff = mod(INF, previous, next);
+	int diff = mod(INF, HALFDIFF, previous, next);
 	diffList[diff]--;
 
 	return;

@@ -32,10 +32,9 @@ string str_int_array(int len, int* array);
 /**
  * @return min(previous - next mod modBy, next - previous mod modBy)
  */
-inline int mod(int modBy, int previous, int next) {
-	static int HALFDIFF = modBy/2;
+inline int mod(int modBy, int HALFDIFF, int previous, int next) {
+  // Take the positive difference
 	int diff = previous > next ? previous - next : next - previous;
-	diff = diff % modBy;
 	diff = diff <= HALFDIFF ? diff : modBy - diff;
 	return diff;
 }
