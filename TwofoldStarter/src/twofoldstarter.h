@@ -30,16 +30,14 @@ string str_cycle_list(int numCycles, int* factor, Vertex** cycleList);
 string str_int_array(int len, int* array);
 
 /**
- * @return num (mod modBy). In partic return value is nonnegative.
+ * @return min(previous - next mod modBy, next - previous mod modBy)
  */
-inline int mod(int modBy, int num) {
-	int modded = num % modBy;
-
-	if(modded < 0) {
-		return modBy + modded;
-	} else {
-		return modded;
-	}
+inline int mod(int modBy, int previous, int next) {
+	static int HALFDIFF = modBy/2;
+	int diff = previous > next ? previous - next : next - previous;
+	diff = diff % modBy;
+	diff = diff <= HALFDIFF ? diff : modBy - diff;
+	return diff;
 }
 
 #endif /* TWOFOLDSTARTER_H_ */

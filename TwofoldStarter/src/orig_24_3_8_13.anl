@@ -1,0 +1,606 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 20.95      2.86     2.86 35542558     0.00     0.00  expand_vertex(int, int, int*, std::vector<Vertex, std::allocator<Vertex> >&)
+ 13.44      4.70     1.84 161589954     0.00     0.00  mod(int, int)
+ 12.67      6.43     1.73        1     1.73    13.64  find_cycle(int, int*, int, int, Vertex**, int*, int*)
+  7.58      7.46     1.04 125852879     0.00     0.00  increase_diffs(int, int, int*)
+  5.79      8.25     0.79 125658399     0.00     0.00  std::vector<Vertex, std::allocator<Vertex> >::pop_back()
+  5.16      8.96     0.71 125658633     0.00     0.00  std::vector<Vertex, std::allocator<Vertex> >::push_back(Vertex const&)
+  4.25      9.54     0.58 376976020     0.00     0.00  Vertex const& std::forward<Vertex const&>(std::remove_reference<Vertex const&>::type&)
+  3.66     10.04     0.50 251317417     0.00     0.00  std::vector<Vertex, std::allocator<Vertex> >::size() const
+  3.52     10.52     0.48 125659896     0.00     0.00  operator new(unsigned long, void*)
+  3.08     10.94     0.42 125658633     0.00     0.00  _ZN9__gnu_cxx13new_allocatorI6VertexE9constructIS1_IRKS1_EEEvPT_DpOT0_
+  2.86     11.33     0.39 125658399     0.00     0.00  std::vector<Vertex, std::allocator<Vertex> >::operator[](unsigned long)
+  2.71     11.70     0.37 125658657     0.00     0.00  Vertex::Vertex()
+  2.27     12.01     0.31 35737199     0.00     0.00  roll_back(int, Vertex*, int*, int*)
+  2.23     12.32     0.31 125658399     0.00     0.00  void std::allocator_traits<std::allocator<Vertex> >::destroy<Vertex>(std::allocator<Vertex>&, Vertex*)
+  2.12     12.61     0.29 125658633     0.00     0.00  _ZNSt16allocator_traitsISaI6VertexEE12_S_constructIS0_IRKS0_EEENSt9enable_ifIXsrNS2_18__construct_helperIT_IDpT0_EEE5valueEvE4typeERS1_PS8_DpOS9_
+  2.09     12.89     0.29 35737031     0.00     0.00  decrease_diffs(int, int, int*)
+  1.90     13.15     0.26 125658633     0.00     0.00  decltype (_S_construct({parm#1}, {parm#2}, (forward<Vertex const&>)({parm#3}))) std::allocator_traits<std::allocator<Vertex> >::construct<Vertex, Vertex const&>(std::allocator<Vertex>&, Vertex*, Vertex const&)
+  1.90     13.41     0.26 125658399     0.00     0.00  std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__destroy_helper<Vertex>::value, void>::type std::allocator_traits<std::allocator<Vertex> >::_S_destroy<Vertex>(std::allocator<Vertex>&, Vertex*)
+  0.92     13.54     0.13 125658399     0.00     0.00  void __gnu_cxx::new_allocator<Vertex>::destroy<Vertex>(Vertex*)
+  0.51     13.61     0.07       17     0.00     0.00  std::vector<Vertex, std::allocator<Vertex> >::~vector()
+  0.11     13.62     0.02      138     0.00     0.00  void std::_Destroy_aux<true>::__destroy<Vertex*>(Vertex*, Vertex*)
+  0.11     13.64     0.02        1     0.02     0.02  _GLOBAL__sub_I__Z15zero_initialiseiPi
+  0.07     13.65     0.01       17     0.00     0.00  init_theStack(int, int*, std::vector<Vertex, std::allocator<Vertex> >&)
+  0.04     13.65     0.01      138     0.00     0.00  void std::_Destroy<Vertex*, Vertex>(Vertex*, Vertex*, std::allocator<Vertex>&)
+  0.00     13.65     0.00     2768     0.00     0.00  std::move_iterator<Vertex*>::base() const
+  0.00     13.65     0.00     1384     0.00     0.00  bool std::operator==<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&)
+  0.00     13.65     0.00     1384     0.00     0.00  bool std::operator!=<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&)
+  0.00     13.65     0.00     1263     0.00     0.00  std::move_iterator<Vertex*>::operator*() const
+  0.00     13.65     0.00     1263     0.00     0.00  std::move_iterator<Vertex*>::operator++()
+  0.00     13.65     0.00     1263     0.00     0.00  _ZSt10_ConstructI6VertexIS0_EEvPT_DpOT0_
+  0.00     13.65     0.00     1263     0.00     0.00  Vertex* std::__addressof<Vertex>(Vertex&)
+  0.00     13.65     0.00     1263     0.00     0.00  std::remove_reference<Vertex&>::type&& std::move<Vertex&>(Vertex&)
+  0.00     13.65     0.00     1263     0.00     0.00  Vertex&& std::forward<Vertex>(std::remove_reference<Vertex>::type&)
+  0.00     13.65     0.00      363     0.00     0.00  __gnu_cxx::new_allocator<Vertex>::max_size() const
+  0.00     13.65     0.00      259     0.00     0.00  std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator()
+  0.00     13.65     0.00      242     0.00     0.00  std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator() const
+  0.00     13.65     0.00      242     0.00     0.00  std::vector<Vertex, std::allocator<Vertex> >::max_size() const
+  0.00     13.65     0.00      242     0.00     0.00  std::move_iterator<Vertex*>::move_iterator(Vertex*)
+  0.00     13.65     0.00      242     0.00     0.00  std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__maxsize_helper<std::allocator<Vertex> const>::value, unsigned long>::type std::allocator_traits<std::allocator<Vertex> >::_S_max_size<std::allocator<Vertex> const>(std::allocator<Vertex> const&)
+  0.00     13.65     0.00      242     0.00     0.00  std::allocator_traits<std::allocator<Vertex> >::max_size(std::allocator<Vertex> const&)
+  0.00     13.65     0.00      242     0.00     0.00  std::move_iterator<Vertex*> std::__make_move_if_noexcept_iterator<Vertex*, std::move_iterator<Vertex*> >(Vertex*)
+  0.00     13.65     0.00      138     0.00     0.00  std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_deallocate(Vertex*, unsigned long)
+  0.00     13.65     0.00      138     0.00     0.00  void std::_Destroy<Vertex*>(Vertex*, Vertex*)
+  0.00     13.65     0.00      121     0.00     0.00  __gnu_cxx::new_allocator<Vertex>::deallocate(Vertex*, unsigned long)
+  0.00     13.65     0.00      121     0.00     0.00  __gnu_cxx::new_allocator<Vertex>::allocate(unsigned long, void const*)
+  0.00     13.65     0.00      121     0.00     0.00  std::vector<Vertex, std::allocator<Vertex> >::_M_check_len(unsigned long, char const*) const
+  0.00     13.65     0.00      121     0.00     0.00  std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_allocate(unsigned long)
+  0.00     13.65     0.00      121     0.00     0.00  Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*)
+  0.00     13.65     0.00      121     0.00     0.00  void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&)
+  0.00     13.65     0.00      121     0.00     0.00  Vertex* std::uninitialized_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*)
+  0.00     13.65     0.00      121     0.00     0.00  Vertex* std::__uninitialized_copy_a<std::move_iterator<Vertex*>, Vertex*, Vertex>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*, std::allocator<Vertex>&)
+  0.00     13.65     0.00      121     0.00     0.00  Vertex* std::__uninitialized_move_if_noexcept_a<Vertex*, Vertex*, std::allocator<Vertex> >(Vertex*, Vertex*, Vertex*, std::allocator<Vertex>&)
+  0.00     13.65     0.00      121     0.00     0.00  unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&)
+  0.00     13.65     0.00       17     0.00     0.00  __gnu_cxx::new_allocator<Vertex>::new_allocator()
+  0.00     13.65     0.00       17     0.00     0.00  __gnu_cxx::new_allocator<Vertex>::~new_allocator()
+  0.00     13.65     0.00       17     0.00     0.00  std::allocator<Vertex>::allocator()
+  0.00     13.65     0.00       17     0.00     0.00  std::allocator<Vertex>::~allocator()
+  0.00     13.65     0.00       17     0.00     0.00  std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::_Vector_impl()
+  0.00     13.65     0.00       17     0.00     0.00  std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::~_Vector_impl()
+  0.00     13.65     0.00       17     0.00     0.00  std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_base()
+  0.00     13.65     0.00       17     0.00     0.00  std::_Vector_base<Vertex, std::allocator<Vertex> >::~_Vector_base()
+  0.00     13.65     0.00       17     0.00     0.00  std::vector<Vertex, std::allocator<Vertex> >::vector()
+  0.00     13.65     0.00        4     0.00     0.00  std::operator|(std::_Ios_Openmode, std::_Ios_Openmode)
+  0.00     13.65     0.00        2     0.00     0.00  str_int_array(int, int*)
+  0.00     13.65     0.00        2     0.00     0.00  zero_initialise(int, int*)
+  0.00     13.65     0.00        1     0.00     0.00  _GLOBAL__sub_I_INF
+  0.00     13.65     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z20test_pos_check_diffsv
+  0.00     13.65     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z9run_testsv
+  0.00     13.65     0.00        1     0.00     0.00  check_repeat(int, int, int*, Vertex**)
+  0.00     13.65     0.00        1     0.00    13.64  find_starter(int, int, int*, Vertex**)
+  0.00     13.65     0.00        1     0.00     0.00  init_available(int, int*)
+  0.00     13.65     0.00        1     0.00     0.00  str_cycle_list(int, int*, Vertex**)
+  0.00     13.65     0.00        1     0.00     0.00  check_differences(int, int, int*, Vertex**)
+  0.00     13.65     0.00        1     0.00     0.00  initialise_cycle_list(int, int*, Vertex**)
+  0.00     13.65     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00     13.65     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00     13.65     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00     13.65     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00     13.65     0.00        1     0.00     0.00  verify(int, int, int*, Vertex**)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.07% of 13.65 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     99.9    0.00   13.64                 main [1]
+                0.00   13.64       1/1           find_starter(int, int, int*, Vertex**) [2]
+                0.00    0.00       1/1           verify(int, int, int*, Vertex**) [37]
+                0.00    0.00       2/2           str_int_array(int, int*) [76]
+                0.00    0.00       1/4           std::operator|(std::_Ios_Openmode, std::_Ios_Openmode) [75]
+                0.00    0.00       1/1           str_cycle_list(int, int*, Vertex**) [83]
+-----------------------------------------------
+                0.00   13.64       1/1           main [1]
+[2]     99.9    0.00   13.64       1         find_starter(int, int, int*, Vertex**) [2]
+                1.73   11.91       1/1           find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+                0.00    0.00       1/1           initialise_cycle_list(int, int*, Vertex**) [38]
+                0.00    0.00       1/1           init_available(int, int*) [82]
+-----------------------------------------------
+                                  16             find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+                1.73   11.91       1/1           find_starter(int, int, int*, Vertex**) [2]
+[3]     99.9    1.73   11.91       1+16      find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+                2.86    3.12 35542558/35542558     expand_vertex(int, int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [4]
+                1.04    1.43 125852879/125852879     increase_diffs(int, int, int*) [6]
+                0.79    0.69 125658399/125658399     std::vector<Vertex, std::allocator<Vertex> >::pop_back() [10]
+                0.31    0.69 35737199/35737199     roll_back(int, Vertex*, int*, int*) [12]
+                0.50    0.00 251316812/251317417     std::vector<Vertex, std::allocator<Vertex> >::size() const [16]
+                0.39    0.00 125658399/125658399     std::vector<Vertex, std::allocator<Vertex> >::operator[](unsigned long) [18]
+                0.07    0.00      17/17          std::vector<Vertex, std::allocator<Vertex> >::~vector() [22]
+                0.01    0.00      17/17          init_theStack(int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [29]
+                0.00    0.00      14/35737031     decrease_diffs(int, int, int*) [13]
+                0.00    0.00      17/17          std::vector<Vertex, std::allocator<Vertex> >::vector() [74]
+                                  16             find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+-----------------------------------------------
+                2.86    3.12 35542558/35542558     find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[4]     43.8    2.86    3.12 35542558         expand_vertex(int, int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [4]
+                0.71    2.05 125658398/125658633     std::vector<Vertex, std::allocator<Vertex> >::push_back(Vertex const&) [5]
+                0.37    0.00 125658398/125658657     Vertex::Vertex() [20]
+-----------------------------------------------
+                0.00    0.00     235/125658633     init_theStack(int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [29]
+                0.71    2.05 125658398/125658633     expand_vertex(int, int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [4]
+[5]     20.2    0.71    2.05 125658633         std::vector<Vertex, std::allocator<Vertex> >::push_back(Vertex const&) [5]
+                0.26    1.77 125658512/125658633     decltype (_S_construct({parm#1}, {parm#2}, (forward<Vertex const&>)({parm#3}))) std::allocator_traits<std::allocator<Vertex> >::construct<Vertex, Vertex const&>(std::allocator<Vertex>&, Vertex*, Vertex const&) [7]
+                0.00    0.02     121/121         void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+-----------------------------------------------
+                1.04    1.43 125852879/125852879     find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[6]     18.1    1.04    1.43 125852879         increase_diffs(int, int, int*) [6]
+                1.43    0.00 125852877/161589954     mod(int, int) [8]
+-----------------------------------------------
+                0.00    0.00     121/125658633     void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+                0.26    1.77 125658512/125658633     std::vector<Vertex, std::allocator<Vertex> >::push_back(Vertex const&) [5]
+[7]     14.9    0.26    1.77 125658633         decltype (_S_construct({parm#1}, {parm#2}, (forward<Vertex const&>)({parm#3}))) std::allocator_traits<std::allocator<Vertex> >::construct<Vertex, Vertex const&>(std::allocator<Vertex>&, Vertex*, Vertex const&) [7]
+                0.29    1.29 125658633/125658633     _ZNSt16allocator_traitsISaI6VertexEE12_S_constructIS0_IRKS0_EEENSt9enable_ifIXsrNS2_18__construct_helperIT_IDpT0_EEE5valueEvE4typeERS1_PS8_DpOS9_ [9]
+                0.19    0.00 125658633/376976020     Vertex const& std::forward<Vertex const&>(std::remove_reference<Vertex const&>::type&) [15]
+-----------------------------------------------
+                0.00    0.00      46/161589954     check_differences(int, int, int*, Vertex**) [36]
+                0.41    0.00 35737031/161589954     decrease_diffs(int, int, int*) [13]
+                1.43    0.00 125852877/161589954     increase_diffs(int, int, int*) [6]
+[8]     13.4    1.84    0.00 161589954         mod(int, int) [8]
+-----------------------------------------------
+                0.29    1.29 125658633/125658633     decltype (_S_construct({parm#1}, {parm#2}, (forward<Vertex const&>)({parm#3}))) std::allocator_traits<std::allocator<Vertex> >::construct<Vertex, Vertex const&>(std::allocator<Vertex>&, Vertex*, Vertex const&) [7]
+[9]     11.6    0.29    1.29 125658633         _ZNSt16allocator_traitsISaI6VertexEE12_S_constructIS0_IRKS0_EEENSt9enable_ifIXsrNS2_18__construct_helperIT_IDpT0_EEE5valueEvE4typeERS1_PS8_DpOS9_ [9]
+                0.42    0.67 125658633/125658633     _ZN9__gnu_cxx13new_allocatorI6VertexE9constructIS1_IRKS1_EEEvPT_DpOT0_ [11]
+                0.19    0.00 125658633/376976020     Vertex const& std::forward<Vertex const&>(std::remove_reference<Vertex const&>::type&) [15]
+-----------------------------------------------
+                0.79    0.69 125658399/125658399     find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[10]    10.8    0.79    0.69 125658399         std::vector<Vertex, std::allocator<Vertex> >::pop_back() [10]
+                0.31    0.39 125658399/125658399     void std::allocator_traits<std::allocator<Vertex> >::destroy<Vertex>(std::allocator<Vertex>&, Vertex*) [14]
+-----------------------------------------------
+                0.42    0.67 125658633/125658633     _ZNSt16allocator_traitsISaI6VertexEE12_S_constructIS0_IRKS0_EEENSt9enable_ifIXsrNS2_18__construct_helperIT_IDpT0_EEE5valueEvE4typeERS1_PS8_DpOS9_ [9]
+[11]     8.0    0.42    0.67 125658633         _ZN9__gnu_cxx13new_allocatorI6VertexE9constructIS1_IRKS1_EEEvPT_DpOT0_ [11]
+                0.48    0.00 125658633/125659896     operator new(unsigned long, void*) [17]
+                0.19    0.00 125658633/376976020     Vertex const& std::forward<Vertex const&>(std::remove_reference<Vertex const&>::type&) [15]
+-----------------------------------------------
+                0.31    0.69 35737199/35737199     find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[12]     7.3    0.31    0.69 35737199         roll_back(int, Vertex*, int*, int*) [12]
+                0.29    0.41 35737017/35737031     decrease_diffs(int, int, int*) [13]
+-----------------------------------------------
+                0.00    0.00      14/35737031     find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+                0.29    0.41 35737017/35737031     roll_back(int, Vertex*, int*, int*) [12]
+[13]     5.1    0.29    0.41 35737031         decrease_diffs(int, int, int*) [13]
+                0.41    0.00 35737031/161589954     mod(int, int) [8]
+-----------------------------------------------
+                0.31    0.39 125658399/125658399     std::vector<Vertex, std::allocator<Vertex> >::pop_back() [10]
+[14]     5.1    0.31    0.39 125658399         void std::allocator_traits<std::allocator<Vertex> >::destroy<Vertex>(std::allocator<Vertex>&, Vertex*) [14]
+                0.26    0.13 125658399/125658399     std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__destroy_helper<Vertex>::value, void>::type std::allocator_traits<std::allocator<Vertex> >::_S_destroy<Vertex>(std::allocator<Vertex>&, Vertex*) [19]
+-----------------------------------------------
+                0.00    0.00     121/376976020     void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+                0.19    0.00 125658633/376976020     decltype (_S_construct({parm#1}, {parm#2}, (forward<Vertex const&>)({parm#3}))) std::allocator_traits<std::allocator<Vertex> >::construct<Vertex, Vertex const&>(std::allocator<Vertex>&, Vertex*, Vertex const&) [7]
+                0.19    0.00 125658633/376976020     _ZNSt16allocator_traitsISaI6VertexEE12_S_constructIS0_IRKS0_EEENSt9enable_ifIXsrNS2_18__construct_helperIT_IDpT0_EEE5valueEvE4typeERS1_PS8_DpOS9_ [9]
+                0.19    0.00 125658633/376976020     _ZN9__gnu_cxx13new_allocatorI6VertexE9constructIS1_IRKS1_EEEvPT_DpOT0_ [11]
+[15]     4.3    0.58    0.00 376976020         Vertex const& std::forward<Vertex const&>(std::remove_reference<Vertex const&>::type&) [15]
+-----------------------------------------------
+                0.00    0.00     121/251317417     void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+                0.00    0.00     484/251317417     std::vector<Vertex, std::allocator<Vertex> >::_M_check_len(unsigned long, char const*) const [35]
+                0.50    0.00 251316812/251317417     find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[16]     3.7    0.50    0.00 251317417         std::vector<Vertex, std::allocator<Vertex> >::size() const [16]
+-----------------------------------------------
+                0.00    0.00    1263/125659896     _ZSt10_ConstructI6VertexIS0_EEvPT_DpOT0_ [30]
+                0.48    0.00 125658633/125659896     _ZN9__gnu_cxx13new_allocatorI6VertexE9constructIS1_IRKS1_EEEvPT_DpOT0_ [11]
+[17]     3.5    0.48    0.00 125659896         operator new(unsigned long, void*) [17]
+-----------------------------------------------
+                0.39    0.00 125658399/125658399     find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[18]     2.9    0.39    0.00 125658399         std::vector<Vertex, std::allocator<Vertex> >::operator[](unsigned long) [18]
+-----------------------------------------------
+                0.26    0.13 125658399/125658399     void std::allocator_traits<std::allocator<Vertex> >::destroy<Vertex>(std::allocator<Vertex>&, Vertex*) [14]
+[19]     2.8    0.26    0.13 125658399         std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__destroy_helper<Vertex>::value, void>::type std::allocator_traits<std::allocator<Vertex> >::_S_destroy<Vertex>(std::allocator<Vertex>&, Vertex*) [19]
+                0.13    0.00 125658399/125658399     void __gnu_cxx::new_allocator<Vertex>::destroy<Vertex>(Vertex*) [21]
+-----------------------------------------------
+                0.00    0.00      24/125658657     initialise_cycle_list(int, int*, Vertex**) [38]
+                0.00    0.00     235/125658657     init_theStack(int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [29]
+                0.37    0.00 125658398/125658657     expand_vertex(int, int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [4]
+[20]     2.7    0.37    0.00 125658657         Vertex::Vertex() [20]
+-----------------------------------------------
+                0.13    0.00 125658399/125658399     std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__destroy_helper<Vertex>::value, void>::type std::allocator_traits<std::allocator<Vertex> >::_S_destroy<Vertex>(std::allocator<Vertex>&, Vertex*) [19]
+[21]     0.9    0.13    0.00 125658399         void __gnu_cxx::new_allocator<Vertex>::destroy<Vertex>(Vertex*) [21]
+-----------------------------------------------
+                0.07    0.00      17/17          find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[22]     0.5    0.07    0.00      17         std::vector<Vertex, std::allocator<Vertex> >::~vector() [22]
+                0.00    0.00      17/138         void std::_Destroy<Vertex*, Vertex>(Vertex*, Vertex*, std::allocator<Vertex>&) [23]
+                0.00    0.00      17/259         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator() [54]
+                0.00    0.00      17/17          std::_Vector_base<Vertex, std::allocator<Vertex> >::~_Vector_base() [73]
+-----------------------------------------------
+                0.00    0.00      17/138         std::vector<Vertex, std::allocator<Vertex> >::~vector() [22]
+                0.00    0.01     121/138         void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+[23]     0.1    0.01    0.02     138         void std::_Destroy<Vertex*, Vertex>(Vertex*, Vertex*, std::allocator<Vertex>&) [23]
+                0.00    0.02     138/138         void std::_Destroy<Vertex*>(Vertex*, Vertex*) [26]
+-----------------------------------------------
+                0.00    0.02     121/121         std::vector<Vertex, std::allocator<Vertex> >::push_back(Vertex const&) [5]
+[24]     0.1    0.00    0.02     121         void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+                0.00    0.01     121/138         void std::_Destroy<Vertex*, Vertex>(Vertex*, Vertex*, std::allocator<Vertex>&) [23]
+                0.00    0.00     121/121         Vertex* std::__uninitialized_move_if_noexcept_a<Vertex*, Vertex*, std::allocator<Vertex> >(Vertex*, Vertex*, Vertex*, std::allocator<Vertex>&) [34]
+                0.00    0.00     121/125658633     decltype (_S_construct({parm#1}, {parm#2}, (forward<Vertex const&>)({parm#3}))) std::allocator_traits<std::allocator<Vertex> >::construct<Vertex, Vertex const&>(std::allocator<Vertex>&, Vertex*, Vertex const&) [7]
+                0.00    0.00     121/121         std::vector<Vertex, std::allocator<Vertex> >::_M_check_len(unsigned long, char const*) const [35]
+                0.00    0.00     121/251317417     std::vector<Vertex, std::allocator<Vertex> >::size() const [16]
+                0.00    0.00     121/376976020     Vertex const& std::forward<Vertex const&>(std::remove_reference<Vertex const&>::type&) [15]
+                0.00    0.00     242/259         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator() [54]
+                0.00    0.00     121/121         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_allocate(unsigned long) [64]
+                0.00    0.00     121/138         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_deallocate(Vertex*, unsigned long) [61]
+-----------------------------------------------
+                0.02    0.00     138/138         void std::_Destroy<Vertex*>(Vertex*, Vertex*) [26]
+[25]     0.1    0.02    0.00     138         void std::_Destroy_aux<true>::__destroy<Vertex*>(Vertex*, Vertex*) [25]
+-----------------------------------------------
+                0.00    0.02     138/138         void std::_Destroy<Vertex*, Vertex>(Vertex*, Vertex*, std::allocator<Vertex>&) [23]
+[26]     0.1    0.00    0.02     138         void std::_Destroy<Vertex*>(Vertex*, Vertex*) [26]
+                0.02    0.00     138/138         void std::_Destroy_aux<true>::__destroy<Vertex*>(Vertex*, Vertex*) [25]
+-----------------------------------------------
+                0.02    0.00       1/1           __libc_csu_init [28]
+[27]     0.1    0.02    0.00       1         _GLOBAL__sub_I__Z15zero_initialiseiPi [27]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [85]
+-----------------------------------------------
+                                                 <spontaneous>
+[28]     0.1    0.00    0.02                 __libc_csu_init [28]
+                0.02    0.00       1/1           _GLOBAL__sub_I__Z15zero_initialiseiPi [27]
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z20test_pos_check_diffsv [79]
+                0.00    0.00       1/1           _GLOBAL__sub_I_INF [78]
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z9run_testsv [80]
+-----------------------------------------------
+                0.01    0.00      17/17          find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[29]     0.1    0.01    0.00      17         init_theStack(int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [29]
+                0.00    0.00     235/125658633     std::vector<Vertex, std::allocator<Vertex> >::push_back(Vertex const&) [5]
+                0.00    0.00     235/125658657     Vertex::Vertex() [20]
+-----------------------------------------------
+                0.00    0.00    1263/1263        Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [31]
+[30]     0.0    0.00    0.00    1263         _ZSt10_ConstructI6VertexIS0_EEvPT_DpOT0_ [30]
+                0.00    0.00    1263/125659896     operator new(unsigned long, void*) [17]
+                0.00    0.00    1263/1263        Vertex&& std::forward<Vertex>(std::remove_reference<Vertex>::type&) [52]
+-----------------------------------------------
+                0.00    0.00     121/121         Vertex* std::uninitialized_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [32]
+[31]     0.0    0.00    0.00     121         Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [31]
+                0.00    0.00    1263/1263        _ZSt10_ConstructI6VertexIS0_EEvPT_DpOT0_ [30]
+                0.00    0.00    1384/1384        bool std::operator!=<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&) [47]
+                0.00    0.00    1263/1263        std::move_iterator<Vertex*>::operator*() const [48]
+                0.00    0.00    1263/1263        Vertex* std::__addressof<Vertex>(Vertex&) [50]
+                0.00    0.00    1263/1263        std::move_iterator<Vertex*>::operator++() [49]
+-----------------------------------------------
+                0.00    0.00     121/121         Vertex* std::__uninitialized_copy_a<std::move_iterator<Vertex*>, Vertex*, Vertex>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*, std::allocator<Vertex>&) [33]
+[32]     0.0    0.00    0.00     121         Vertex* std::uninitialized_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [32]
+                0.00    0.00     121/121         Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [31]
+-----------------------------------------------
+                0.00    0.00     121/121         Vertex* std::__uninitialized_move_if_noexcept_a<Vertex*, Vertex*, std::allocator<Vertex> >(Vertex*, Vertex*, Vertex*, std::allocator<Vertex>&) [34]
+[33]     0.0    0.00    0.00     121         Vertex* std::__uninitialized_copy_a<std::move_iterator<Vertex*>, Vertex*, Vertex>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*, std::allocator<Vertex>&) [33]
+                0.00    0.00     121/121         Vertex* std::uninitialized_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [32]
+-----------------------------------------------
+                0.00    0.00     121/121         void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+[34]     0.0    0.00    0.00     121         Vertex* std::__uninitialized_move_if_noexcept_a<Vertex*, Vertex*, std::allocator<Vertex> >(Vertex*, Vertex*, Vertex*, std::allocator<Vertex>&) [34]
+                0.00    0.00     121/121         Vertex* std::__uninitialized_copy_a<std::move_iterator<Vertex*>, Vertex*, Vertex>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*, std::allocator<Vertex>&) [33]
+                0.00    0.00     242/242         std::move_iterator<Vertex*> std::__make_move_if_noexcept_iterator<Vertex*, std::move_iterator<Vertex*> >(Vertex*) [60]
+-----------------------------------------------
+                0.00    0.00     121/121         void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+[35]     0.0    0.00    0.00     121         std::vector<Vertex, std::allocator<Vertex> >::_M_check_len(unsigned long, char const*) const [35]
+                0.00    0.00     484/251317417     std::vector<Vertex, std::allocator<Vertex> >::size() const [16]
+                0.00    0.00     242/242         std::vector<Vertex, std::allocator<Vertex> >::max_size() const [56]
+                0.00    0.00     121/121         unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [65]
+-----------------------------------------------
+                0.00    0.00       1/1           verify(int, int, int*, Vertex**) [37]
+[36]     0.0    0.00    0.00       1         check_differences(int, int, int*, Vertex**) [36]
+                0.00    0.00      46/161589954     mod(int, int) [8]
+                0.00    0.00       1/2           zero_initialise(int, int*) [77]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[37]     0.0    0.00    0.00       1         verify(int, int, int*, Vertex**) [37]
+                0.00    0.00       1/1           check_differences(int, int, int*, Vertex**) [36]
+                0.00    0.00       1/1           check_repeat(int, int, int*, Vertex**) [81]
+-----------------------------------------------
+                0.00    0.00       1/1           find_starter(int, int, int*, Vertex**) [2]
+[38]     0.0    0.00    0.00       1         initialise_cycle_list(int, int*, Vertex**) [38]
+                0.00    0.00      24/125658657     Vertex::Vertex() [20]
+-----------------------------------------------
+                0.00    0.00    2768/2768        bool std::operator==<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&) [46]
+[45]     0.0    0.00    0.00    2768         std::move_iterator<Vertex*>::base() const [45]
+-----------------------------------------------
+                0.00    0.00    1384/1384        bool std::operator!=<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&) [47]
+[46]     0.0    0.00    0.00    1384         bool std::operator==<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&) [46]
+                0.00    0.00    2768/2768        std::move_iterator<Vertex*>::base() const [45]
+-----------------------------------------------
+                0.00    0.00    1384/1384        Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [31]
+[47]     0.0    0.00    0.00    1384         bool std::operator!=<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&) [47]
+                0.00    0.00    1384/1384        bool std::operator==<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&) [46]
+-----------------------------------------------
+                0.00    0.00    1263/1263        Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [31]
+[48]     0.0    0.00    0.00    1263         std::move_iterator<Vertex*>::operator*() const [48]
+                0.00    0.00    1263/1263        std::remove_reference<Vertex&>::type&& std::move<Vertex&>(Vertex&) [51]
+-----------------------------------------------
+                0.00    0.00    1263/1263        Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [31]
+[49]     0.0    0.00    0.00    1263         std::move_iterator<Vertex*>::operator++() [49]
+-----------------------------------------------
+                0.00    0.00    1263/1263        Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*) [31]
+[50]     0.0    0.00    0.00    1263         Vertex* std::__addressof<Vertex>(Vertex&) [50]
+-----------------------------------------------
+                0.00    0.00    1263/1263        std::move_iterator<Vertex*>::operator*() const [48]
+[51]     0.0    0.00    0.00    1263         std::remove_reference<Vertex&>::type&& std::move<Vertex&>(Vertex&) [51]
+-----------------------------------------------
+                0.00    0.00    1263/1263        _ZSt10_ConstructI6VertexIS0_EEvPT_DpOT0_ [30]
+[52]     0.0    0.00    0.00    1263         Vertex&& std::forward<Vertex>(std::remove_reference<Vertex>::type&) [52]
+-----------------------------------------------
+                0.00    0.00     121/363         __gnu_cxx::new_allocator<Vertex>::allocate(unsigned long, void const*) [63]
+                0.00    0.00     242/363         std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__maxsize_helper<std::allocator<Vertex> const>::value, unsigned long>::type std::allocator_traits<std::allocator<Vertex> >::_S_max_size<std::allocator<Vertex> const>(std::allocator<Vertex> const&) [58]
+[53]     0.0    0.00    0.00     363         __gnu_cxx::new_allocator<Vertex>::max_size() const [53]
+-----------------------------------------------
+                0.00    0.00      17/259         std::vector<Vertex, std::allocator<Vertex> >::~vector() [22]
+                0.00    0.00     242/259         void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+[54]     0.0    0.00    0.00     259         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator() [54]
+-----------------------------------------------
+                0.00    0.00     242/242         std::vector<Vertex, std::allocator<Vertex> >::max_size() const [56]
+[55]     0.0    0.00    0.00     242         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator() const [55]
+-----------------------------------------------
+                0.00    0.00     242/242         std::vector<Vertex, std::allocator<Vertex> >::_M_check_len(unsigned long, char const*) const [35]
+[56]     0.0    0.00    0.00     242         std::vector<Vertex, std::allocator<Vertex> >::max_size() const [56]
+                0.00    0.00     242/242         std::allocator_traits<std::allocator<Vertex> >::max_size(std::allocator<Vertex> const&) [59]
+                0.00    0.00     242/242         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator() const [55]
+-----------------------------------------------
+                0.00    0.00     242/242         std::move_iterator<Vertex*> std::__make_move_if_noexcept_iterator<Vertex*, std::move_iterator<Vertex*> >(Vertex*) [60]
+[57]     0.0    0.00    0.00     242         std::move_iterator<Vertex*>::move_iterator(Vertex*) [57]
+-----------------------------------------------
+                0.00    0.00     242/242         std::allocator_traits<std::allocator<Vertex> >::max_size(std::allocator<Vertex> const&) [59]
+[58]     0.0    0.00    0.00     242         std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__maxsize_helper<std::allocator<Vertex> const>::value, unsigned long>::type std::allocator_traits<std::allocator<Vertex> >::_S_max_size<std::allocator<Vertex> const>(std::allocator<Vertex> const&) [58]
+                0.00    0.00     242/363         __gnu_cxx::new_allocator<Vertex>::max_size() const [53]
+-----------------------------------------------
+                0.00    0.00     242/242         std::vector<Vertex, std::allocator<Vertex> >::max_size() const [56]
+[59]     0.0    0.00    0.00     242         std::allocator_traits<std::allocator<Vertex> >::max_size(std::allocator<Vertex> const&) [59]
+                0.00    0.00     242/242         std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__maxsize_helper<std::allocator<Vertex> const>::value, unsigned long>::type std::allocator_traits<std::allocator<Vertex> >::_S_max_size<std::allocator<Vertex> const>(std::allocator<Vertex> const&) [58]
+-----------------------------------------------
+                0.00    0.00     242/242         Vertex* std::__uninitialized_move_if_noexcept_a<Vertex*, Vertex*, std::allocator<Vertex> >(Vertex*, Vertex*, Vertex*, std::allocator<Vertex>&) [34]
+[60]     0.0    0.00    0.00     242         std::move_iterator<Vertex*> std::__make_move_if_noexcept_iterator<Vertex*, std::move_iterator<Vertex*> >(Vertex*) [60]
+                0.00    0.00     242/242         std::move_iterator<Vertex*>::move_iterator(Vertex*) [57]
+-----------------------------------------------
+                0.00    0.00      17/138         std::_Vector_base<Vertex, std::allocator<Vertex> >::~_Vector_base() [73]
+                0.00    0.00     121/138         void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+[61]     0.0    0.00    0.00     138         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_deallocate(Vertex*, unsigned long) [61]
+                0.00    0.00     121/121         __gnu_cxx::new_allocator<Vertex>::deallocate(Vertex*, unsigned long) [62]
+-----------------------------------------------
+                0.00    0.00     121/121         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_deallocate(Vertex*, unsigned long) [61]
+[62]     0.0    0.00    0.00     121         __gnu_cxx::new_allocator<Vertex>::deallocate(Vertex*, unsigned long) [62]
+-----------------------------------------------
+                0.00    0.00     121/121         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_allocate(unsigned long) [64]
+[63]     0.0    0.00    0.00     121         __gnu_cxx::new_allocator<Vertex>::allocate(unsigned long, void const*) [63]
+                0.00    0.00     121/363         __gnu_cxx::new_allocator<Vertex>::max_size() const [53]
+-----------------------------------------------
+                0.00    0.00     121/121         void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&) [24]
+[64]     0.0    0.00    0.00     121         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_allocate(unsigned long) [64]
+                0.00    0.00     121/121         __gnu_cxx::new_allocator<Vertex>::allocate(unsigned long, void const*) [63]
+-----------------------------------------------
+                0.00    0.00     121/121         std::vector<Vertex, std::allocator<Vertex> >::_M_check_len(unsigned long, char const*) const [35]
+[65]     0.0    0.00    0.00     121         unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [65]
+-----------------------------------------------
+                0.00    0.00      17/17          std::allocator<Vertex>::allocator() [68]
+[66]     0.0    0.00    0.00      17         __gnu_cxx::new_allocator<Vertex>::new_allocator() [66]
+-----------------------------------------------
+                0.00    0.00      17/17          std::allocator<Vertex>::~allocator() [69]
+[67]     0.0    0.00    0.00      17         __gnu_cxx::new_allocator<Vertex>::~new_allocator() [67]
+-----------------------------------------------
+                0.00    0.00      17/17          std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::_Vector_impl() [70]
+[68]     0.0    0.00    0.00      17         std::allocator<Vertex>::allocator() [68]
+                0.00    0.00      17/17          __gnu_cxx::new_allocator<Vertex>::new_allocator() [66]
+-----------------------------------------------
+                0.00    0.00      17/17          std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::~_Vector_impl() [71]
+[69]     0.0    0.00    0.00      17         std::allocator<Vertex>::~allocator() [69]
+                0.00    0.00      17/17          __gnu_cxx::new_allocator<Vertex>::~new_allocator() [67]
+-----------------------------------------------
+                0.00    0.00      17/17          std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_base() [72]
+[70]     0.0    0.00    0.00      17         std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::_Vector_impl() [70]
+                0.00    0.00      17/17          std::allocator<Vertex>::allocator() [68]
+-----------------------------------------------
+                0.00    0.00      17/17          std::_Vector_base<Vertex, std::allocator<Vertex> >::~_Vector_base() [73]
+[71]     0.0    0.00    0.00      17         std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::~_Vector_impl() [71]
+                0.00    0.00      17/17          std::allocator<Vertex>::~allocator() [69]
+-----------------------------------------------
+                0.00    0.00      17/17          std::vector<Vertex, std::allocator<Vertex> >::vector() [74]
+[72]     0.0    0.00    0.00      17         std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_base() [72]
+                0.00    0.00      17/17          std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::_Vector_impl() [70]
+-----------------------------------------------
+                0.00    0.00      17/17          std::vector<Vertex, std::allocator<Vertex> >::~vector() [22]
+[73]     0.0    0.00    0.00      17         std::_Vector_base<Vertex, std::allocator<Vertex> >::~_Vector_base() [73]
+                0.00    0.00      17/17          std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::~_Vector_impl() [71]
+                0.00    0.00      17/138         std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_deallocate(Vertex*, unsigned long) [61]
+-----------------------------------------------
+                0.00    0.00      17/17          find_cycle(int, int*, int, int, Vertex**, int*, int*) [3]
+[74]     0.0    0.00    0.00      17         std::vector<Vertex, std::allocator<Vertex> >::vector() [74]
+                0.00    0.00      17/17          std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_base() [72]
+-----------------------------------------------
+                0.00    0.00       1/4           main [1]
+                0.00    0.00       1/4           str_cycle_list(int, int*, Vertex**) [83]
+                0.00    0.00       2/4           str_int_array(int, int*) [76]
+[75]     0.0    0.00    0.00       4         std::operator|(std::_Ios_Openmode, std::_Ios_Openmode) [75]
+-----------------------------------------------
+                0.00    0.00       2/2           main [1]
+[76]     0.0    0.00    0.00       2         str_int_array(int, int*) [76]
+                0.00    0.00       2/4           std::operator|(std::_Ios_Openmode, std::_Ios_Openmode) [75]
+-----------------------------------------------
+                0.00    0.00       1/2           check_repeat(int, int, int*, Vertex**) [81]
+                0.00    0.00       1/2           check_differences(int, int, int*, Vertex**) [36]
+[77]     0.0    0.00    0.00       2         zero_initialise(int, int*) [77]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [28]
+[78]     0.0    0.00    0.00       1         _GLOBAL__sub_I_INF [78]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [86]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [28]
+[79]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z20test_pos_check_diffsv [79]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [87]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [28]
+[80]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z9run_testsv [80]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [84]
+-----------------------------------------------
+                0.00    0.00       1/1           verify(int, int, int*, Vertex**) [37]
+[81]     0.0    0.00    0.00       1         check_repeat(int, int, int*, Vertex**) [81]
+                0.00    0.00       1/2           zero_initialise(int, int*) [77]
+-----------------------------------------------
+                0.00    0.00       1/1           find_starter(int, int, int*, Vertex**) [2]
+[82]     0.0    0.00    0.00       1         init_available(int, int*) [82]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[83]     0.0    0.00    0.00       1         str_cycle_list(int, int*, Vertex**) [83]
+                0.00    0.00       1/4           std::operator|(std::_Ios_Openmode, std::_Ios_Openmode) [75]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z9run_testsv [80]
+[84]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [84]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z15zero_initialiseiPi [27]
+[85]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [85]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I_INF [78]
+[86]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [86]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z20test_pos_check_diffsv [79]
+[87]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [87]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [78] _GLOBAL__sub_I_INF     [63] __gnu_cxx::new_allocator<Vertex>::allocate(unsigned long, void const*) [59] std::allocator_traits<std::allocator<Vertex> >::max_size(std::allocator<Vertex> const&)
+  [27] _GLOBAL__sub_I__Z15zero_initialiseiPi [11] _ZN9__gnu_cxx13new_allocatorI6VertexE9constructIS1_IRKS1_EEEvPT_DpOT0_ [7] decltype (_S_construct({parm#1}, {parm#2}, (forward<Vertex const&>)({parm#3}))) std::allocator_traits<std::allocator<Vertex> >::construct<Vertex, Vertex const&>(std::allocator<Vertex>&, Vertex*, Vertex const&)
+  [79] _GLOBAL__sub_I__Z20test_pos_check_diffsv [66] __gnu_cxx::new_allocator<Vertex>::new_allocator() [31] Vertex* std::__uninitialized_copy<false>::__uninit_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*)
+  [80] _GLOBAL__sub_I__Z9run_testsv [67] __gnu_cxx::new_allocator<Vertex>::~new_allocator() [24] void std::vector<Vertex, std::allocator<Vertex> >::_M_emplace_back_aux<Vertex const&>(Vertex const&)
+   [3] find_cycle(int, int*, int, int, Vertex**, int*, int*) [53] __gnu_cxx::new_allocator<Vertex>::max_size() const [10] std::vector<Vertex, std::allocator<Vertex> >::pop_back()
+  [81] check_repeat(int, int, int*, Vertex**) [55] std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator() const [5] std::vector<Vertex, std::allocator<Vertex> >::push_back(Vertex const&)
+   [2] find_starter(int, int, int*, Vertex**) [45] std::move_iterator<Vertex*>::base() const [74] std::vector<Vertex, std::allocator<Vertex> >::vector()
+   [4] expand_vertex(int, int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [48] std::move_iterator<Vertex*>::operator*() const [22] std::vector<Vertex, std::allocator<Vertex> >::~vector()
+  [29] init_theStack(int, int*, std::vector<Vertex, std::allocator<Vertex> >&) [35] std::vector<Vertex, std::allocator<Vertex> >::_M_check_len(unsigned long, char const*) const [18] std::vector<Vertex, std::allocator<Vertex> >::operator[](unsigned long)
+  [76] str_int_array(int, int*) [16] std::vector<Vertex, std::allocator<Vertex> >::size() const [30] _ZSt10_ConstructI6VertexIS0_EEvPT_DpOT0_
+  [13] decrease_diffs(int, int, int*) [56] std::vector<Vertex, std::allocator<Vertex> >::max_size() const [50] Vertex* std::__addressof<Vertex>(Vertex&)
+   [6] increase_diffs(int, int, int*) [68] std::allocator<Vertex>::allocator() [32] Vertex* std::uninitialized_copy<std::move_iterator<Vertex*>, Vertex*>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*)
+  [82] init_available(int, int*) [69] std::allocator<Vertex>::~allocator() [33] Vertex* std::__uninitialized_copy_a<std::move_iterator<Vertex*>, Vertex*, Vertex>(std::move_iterator<Vertex*>, std::move_iterator<Vertex*>, Vertex*, std::allocator<Vertex>&)
+  [83] str_cycle_list(int, int*, Vertex**) [25] void std::_Destroy_aux<true>::__destroy<Vertex*>(Vertex*, Vertex*) [60] std::move_iterator<Vertex*> std::__make_move_if_noexcept_iterator<Vertex*, std::move_iterator<Vertex*> >(Vertex*)
+  [77] zero_initialise(int, int*) [64] std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_allocate(unsigned long) [34] Vertex* std::__uninitialized_move_if_noexcept_a<Vertex*, Vertex*, std::allocator<Vertex> >(Vertex*, Vertex*, Vertex*, std::allocator<Vertex>&)
+  [36] check_differences(int, int, int*, Vertex**) [70] std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::_Vector_impl() [65] unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&)
+  [38] initialise_cycle_list(int, int*, Vertex**) [71] std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_impl::~_Vector_impl() [51] std::remove_reference<Vertex&>::type&& std::move<Vertex&>(Vertex&)
+   [8] mod(int, int)          [61] std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_deallocate(Vertex*, unsigned long) [52] Vertex&& std::forward<Vertex>(std::remove_reference<Vertex>::type&)
+  [84] __static_initialization_and_destruction_0(int, int) [54] std::_Vector_base<Vertex, std::allocator<Vertex> >::_M_get_Tp_allocator() [15] Vertex const& std::forward<Vertex const&>(std::remove_reference<Vertex const&>::type&)
+  [85] __static_initialization_and_destruction_0(int, int) [72] std::_Vector_base<Vertex, std::allocator<Vertex> >::_Vector_base() [26] void std::_Destroy<Vertex*>(Vertex*, Vertex*)
+  [86] __static_initialization_and_destruction_0(int, int) [73] std::_Vector_base<Vertex, std::allocator<Vertex> >::~_Vector_base() [23] void std::_Destroy<Vertex*, Vertex>(Vertex*, Vertex*, std::allocator<Vertex>&)
+  [87] __static_initialization_and_destruction_0(int, int) [57] std::move_iterator<Vertex*>::move_iterator(Vertex*) [46] bool std::operator==<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&)
+  [37] verify(int, int, int*, Vertex**) [49] std::move_iterator<Vertex*>::operator++() [47] bool std::operator!=<Vertex*>(std::move_iterator<Vertex*> const&, std::move_iterator<Vertex*> const&)
+  [12] roll_back(int, Vertex*, int*, int*) [19] std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__destroy_helper<Vertex>::value, void>::type std::allocator_traits<std::allocator<Vertex> >::_S_destroy<Vertex>(std::allocator<Vertex>&, Vertex*) [75] std::operator|(std::_Ios_Openmode, std::_Ios_Openmode)
+  [20] Vertex::Vertex()       [58] std::enable_if<std::allocator_traits<std::allocator<Vertex> >::__maxsize_helper<std::allocator<Vertex> const>::value, unsigned long>::type std::allocator_traits<std::allocator<Vertex> >::_S_max_size<std::allocator<Vertex> const>(std::allocator<Vertex> const&) [17] operator new(unsigned long, void*)
+  [62] __gnu_cxx::new_allocator<Vertex>::deallocate(Vertex*, unsigned long) [9] _ZNSt16allocator_traitsISaI6VertexEE12_S_constructIS0_IRKS0_EEENSt9enable_ifIXsrNS2_18__construct_helperIT_IDpT0_EEE5valueEvE4typeERS1_PS8_DpOS9_
+  [21] void __gnu_cxx::new_allocator<Vertex>::destroy<Vertex>(Vertex*) [14] void std::allocator_traits<std::allocator<Vertex> >::destroy<Vertex>(std::allocator<Vertex>&, Vertex*)

@@ -12,6 +12,8 @@
 // GLOBALS
 // The infinity element, n-1.
 int INF;
+int HALFDIFF;
+int N;
 
 /*
  * For some reason cannot overload ostream's <<
@@ -117,16 +119,14 @@ inline bool increase_diffs(int previous, int next, int* diffList) {
 		return true;
 	}
 
-	int diff1 = mod(INF, previous - next);
-	int diff2 = (INF) - diff1;
-
-	if(diffList[diff1] > 1 || diffList[diff2] > 1) {
-		return false;
-	} else {
-		diffList[diff1]++;
-		diffList[diff2]++;
+	int diff = mod(INF, previous, next);
+	if(diffList[diff] < 2) {
+		diffList[diff]++;
 		return true;
+	} else {
+		return false;
 	}
+
 }
 
 /**
@@ -146,11 +146,8 @@ inline void decrease_diffs(int previous, int next, int* diffList) {
 		return;
 	}
 
-	int diff1 = mod(INF, previous - next);
-	int diff2 = INF - diff1;
-
-	diffList[diff1]--;
-	diffList[diff2]--;
+	int diff = mod(INF, previous, next);
+	diffList[diff]--;
 
 	return;
 }
@@ -333,12 +330,14 @@ bool find_cycle(int n, int* factor, int numCycles, int cycleID, Vertex** cycleLi
 
 bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList) {
 	INF = n-1;
+	HALFDIFF = INF/2;
+	N = n;
 	// The current list of differences, with diffList[i] = number of occurrences of difference i.
-	int diffList[n-1];
+	int diffList[HALFDIFF+1];
 
-  for(int i = 0; i < n-1; i++) {
-    diffList[i] = 0;
-  }
+    for(int i = 0; i < HALFDIFF+1; i++) {
+      diffList[i] = 0;
+    }
 
 	initialise_cycle_list(numCycles, factor, cycleList);
 	int available[n];

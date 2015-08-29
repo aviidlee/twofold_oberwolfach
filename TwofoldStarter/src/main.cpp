@@ -108,8 +108,9 @@ int main(int argc, char** argv) {
 	string starter;
 
 	if(find_starter(n, numCycles, factor, cycleList)) {
-		ssCycleList << str_cycle_list(numCycles, factor, cycleList);
-		starter = ssCycleList.str();
+		//ssCycleList << str_cycle_list(numCycles, factor, cycleList);
+		//starter = ssCycleList.str();
+    starter = str_cycle_list(numCycles, factor, cycleList);
 		cout << "Your beautiful twofold 2-starter: ";
 		cout <<  starter << endl;
 
