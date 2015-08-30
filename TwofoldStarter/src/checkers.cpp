@@ -67,12 +67,13 @@ bool check_differences(int n, int numCycles, int* factor, Vertex** cycleList) {
 
 		for(int j = 0; j < cycleLen; j++) {
 			int v1 = cycle[j].vertex;
-			int v2 = cycle[mod(cycleLen, j+1)].vertex;
+			int v2 = cycle[(j+1) % cycleLen].vertex;
+
 			if(v1 == N || v2 == N) {
 				continue;
 			}
-
-			int diff1 = mod(N, v1 - v2);
+      
+			int diff1 = v1 > v2 ? v1-v2 : v2-v1;
 			diffList[diff1]++;
 			diffList[N - diff1]++;
 		}

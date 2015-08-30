@@ -21,6 +21,10 @@ bool check_repeat(int n, int numCycles, int* factor, Vertex** cycleList);
  * REMEMBER TO IGNORE N BECAUSE IT'S INFINITY.
  */
 bool check_differences(int n, int numCycles, int* factor, Vertex** cycleList);
+
+/**
+ * Return check_repeat && check_differences.
+ */
 bool verify(int n, int numCycles, int* factor, Vertex** cycleList);
 
 #endif
