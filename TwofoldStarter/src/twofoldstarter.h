@@ -15,8 +15,6 @@
 #include <sstream>
 #include <cmath>
 
-#include "windows.h"
-
 #include "vertex.h"
 
 using std::vector;
