@@ -1,7 +1,10 @@
 # README
 **Author:** Alexia (Alex) Lee
+
 **Email:** alexia.lee@uqconnect.edu.au
+
 **Institution:** The University of Queensland
+
 **README updated on:** 28/10/2015
 
 **Notes:** we use the terms "twofold 2-starter" and "starter" interchangeably.
@@ -17,7 +20,7 @@ So far, all problem instances have a starter. The list of starters are contained
 `results` folder. The vertices are labelled from 0 to n-1, and n-1 is the infinity vertex.
 The starters are given in the format 
 
-<order>: <lengths of cycles> : <cycles given as lists> PASS
+`<order>: <lengths of cycles> : <cycles given as lists> PASS`
 
 For example, a starter for OP(14; 3, 3, 3, 5) is 
 
@@ -59,7 +62,7 @@ Coming soon.
 ## Usage instructions
 Run as 
 
-twofoldstarters.exe <order of problem> <number of cycles in 2-factor> <space separated list of cycle lengths> <output file name>
+`twofoldstarters.exe <order of problem> <number of cycles in 2-factor> <space separated list of cycle lengths> <output file name>`
 
 For example, to solve OP(14; 3, 3, 3, 5) and output the result to a file called `out.txt`, run
 
