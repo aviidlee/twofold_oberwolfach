@@ -24,7 +24,7 @@ The starters are given in the format
 
 For example, a starter for OP(14; 3, 3, 3, 5) is 
 
-14; [3,3,3,5] : [[13, 12, 11][10, 9, 6][5, 3, 0][8, 4, 2, 7, 1]] PASS
+`14; [3,3,3,5] : [[13, 12, 11][10, 9, 6][5, 3, 0][8, 4, 2, 7, 1]] PASS`
 
 with 13 being infinity. The `PASS` at the end just indicates that the starter passed
 verification, so that it is actually a starter. 
@@ -42,7 +42,8 @@ verification, so that it is actually a starter.
 	- OP24.txt
 	- OP28.txt
 	- OP30.txt
-
+	- OP32.txt
+	
 - src: all source code used to generate starters
 	- `checkers.cpp`: code for verifying correctness of generated starters
 	- `checkers.h`
@@ -66,4 +67,4 @@ Run as
 
 For example, to solve OP(14; 3, 3, 3, 5) and output the result to a file called `out.txt`, run
 
-twofoldstarters.exe 14 4 3 3 3 5 out.txt
+`twofoldstarters.exe 14 4 3 3 3 5 out.txt`
