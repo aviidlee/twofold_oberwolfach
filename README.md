@@ -41,7 +41,7 @@ verification, so that it is actually a starter.
 	- OP22.txt
 	- OP24.txt
 	- OP28.txt
-	- OP30.txt
+	- OP30.txt : currently missing a few starters, soon to be updated.
 	- OP32.txt
 	
 - src: all source code used to generate starters
