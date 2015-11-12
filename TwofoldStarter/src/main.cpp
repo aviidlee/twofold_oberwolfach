@@ -134,6 +134,3 @@ int main(int argc, char** argv) {
 	outFile.close();
 	return 0;
 }
-
-
-

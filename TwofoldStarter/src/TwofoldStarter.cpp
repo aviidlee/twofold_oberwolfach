@@ -16,7 +16,14 @@ int HALFDIFF;
 int N;
 
 /*
- * For some reason cannot overload ostream's <<
+ * For some reason cannot overload ostream's <<, so need to print 2-factors manually.
+ *
+ * @param numCycles - the number of cycles in cycleList 
+ * @param factor - array such that factor[i] is the length of the i-th cycle
+ * @param cycleList - array such that cycleList[i][j] is the j-th vertex on the i-th cycle
+ *
+ * @return a string representation of cycleList, in the form [cycle1, cycle2, ..., cyclet]
+ *         for example, [[1, 2, 3][4, 5, 6]]
  */
 string str_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
 	stringstream ss;
@@ -33,6 +40,13 @@ string str_cycle_list(int numCycles, int* factor, Vertex** cycleList) {
 	return ss.str();
 }
 
+/*
+ * Return a string representation of an integer array.
+ * @param len - the length of array 
+ * @param array - the array of integers to string-ify
+ *
+ * @return a string representation of array of the form [1, 2, 3]
+ */
 string str_int_array(int len, int* array) {
 	stringstream ss;
 	ss << "[";
@@ -126,7 +140,6 @@ inline bool increase_diffs(int previous, int next, int* diffList) {
 	} else {
 		return false;
 	}
-
 }
 
 /**
@@ -148,7 +161,6 @@ inline void decrease_diffs(int previous, int next, int* diffList) {
 
 	int diff = mod(INF, HALFDIFF, previous, next);
 	diffList[diff]--;
-
 	return;
 }
 
@@ -179,14 +191,6 @@ inline int roll_back(int numVerts, Vertex* cycle, int* diffList, int* available)
 	return numVerts;
 }
 
-/**
- * Return number of vertices now on the cycle.
- */
-inline int add_to_cycle() {
-	return -1;
-}
-
-
 /*
  * Pushes onto the stack all the vertices which could follow the vertex parent;
  * i.e., all the vertices that have not been used yet. Sets the parent of the each
@@ -211,12 +215,19 @@ void expand_vertex(int n, int parent, int* available, vector<Vertex>& theStack) 
 
 /**
  * Intended to be called only by find_starter.
- * Tries to find a cycle
- *
+ * Tries to find the next cycle of the starter, given we have set cycleID-1 cycles
+ * 
  * @param n - the order of the OP
  * @param factor - an array of length numCycles in which factor[i] is the
  * 				   length of the i-th cycle.
+ * @param numCycles - the number of cycles in the 2-factor.
+ * @param cycleID - we are trying to label the cycleID-th cycle in the starter.
+ * @param cycleList - the starter so far, with cycleList[i][j] being the j-th vertex of the i-th cycle.
+ * @param diffList - array such that diffList[i] is the number of times the difference i occurs in cycleList.
  * @param available - the vertices we haven't yet used in a cycle.
+ * 
+ * @return true iff we could find a twofold 2-starter with the first numCycles-1 cycles of the starter being
+ *         the union of cycleList[i] for i=0 to numCycles-1
  */
 bool find_cycle(int n, int* factor, int numCycles, int cycleID, Vertex** cycleList, int* diffList, int* available) {
 
@@ -328,6 +339,18 @@ bool find_cycle(int n, int* factor, int numCycles, int cycleID, Vertex** cycleLi
 	return false;
 }
 
+/**
+ * Tries to find a twofold 2-starter of the OP specified by factor. 
+ * 
+ * @param n - the order of the OP; the number of vertices in the complete graph.
+ * @param numCycles - the number of cycles in each 2-factor.
+ * @param factor - array of length numCycles such that factor[i] is the length of the i-th cycle in the 2-factor.
+ * @param cycleList - a zero-initialised array in which to store the starter, if we find one. 
+ *                    cycleList has length numCycles and for each 0 <= i < numCycles, cycleList[i] has 
+ *                    length factor[i].
+ * 
+ * @return true iff we could find a twofold 2-starter.
+ */
 bool find_starter(int n, int numCycles, int* factor, Vertex** cycleList) {
 	INF = n-1;
 	HALFDIFF = INF/2;
