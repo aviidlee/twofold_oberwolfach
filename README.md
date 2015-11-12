@@ -15,6 +15,7 @@ problem at the University of Queensland, under the supervision of Dr Barbara Mae
 The code is a brute-force search for twofold 2-starters, as defined in the 2012 paper 
 "2-starters, graceful labelings, and a doubling construction for the Oberwolfach Problem"
 by Marco Buratti and Tommaso Traetta (http://www.ams.org/mathscinet-getitem?mr=2974194). 
+At the moment, the code is only designed to work for twofold OPs of **EVEN order**.
 
 So far, all problem instances have a starter. The list of starters are contained in the 
 `results` folder. The vertices are labelled from 0 to n-1, and n-1 is the infinity vertex.
@@ -42,7 +43,7 @@ verification, so that it is actually a starter.
 	- OP24.txt
 	- OP28.txt
 	- OP30.txt : currently missing a few starters, soon to be updated.
-	- OP32.txt
+	- OP32.txt : also missing a handful of starters, soon to be updated.
 	
 - src: all source code used to generate starters
 	- `checkers.cpp`: code for verifying correctness of generated starters

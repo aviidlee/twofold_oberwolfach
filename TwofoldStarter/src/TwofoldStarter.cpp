@@ -3,6 +3,7 @@
 // Author      : Alex Lee
 // Version     : 1.0
 // Description : Finds a twofold 2-starter, if one exists.
+// WARNING     : Currently only works for OP_2 of EVEN order.
 //============================================================================
 #include "twofoldstarter.h"
 
