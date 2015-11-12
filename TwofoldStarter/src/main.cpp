@@ -77,8 +77,8 @@ int main(int argc, char** argv) {
 		int len = atoi(argv[3+i]);
 		factor[i] = len;
 		cycleLenSum += len;
-		if(len < 2) {
-			cout << "Cycle length must be at least 2." << endl;
+		if(len < 3) {
+			cout << "Cycle length must be at least 3." << endl;
 			return -1;
 		}
 	}
